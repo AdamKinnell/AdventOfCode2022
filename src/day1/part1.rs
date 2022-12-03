@@ -18,12 +18,15 @@ pub fn solve(input: &str) -> i32 {
 }
 
 
-#[cfg(test)]
-mod tests {
+pub mod tests {
     use super::*;
 
     #[test]
     fn verify_solution() {
         assert_eq!(solve(super::super::INPUT), 65912);
+    }
+
+    pub fn benchmark() {
+        solve(super::super::INPUT);
     }
 }
