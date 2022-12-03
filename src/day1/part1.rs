@@ -1,3 +1,4 @@
+
 pub fn solve(input: &str) -> i32 {
     let mut iter = input.lines();
     let mut largest = 0;
@@ -16,14 +17,13 @@ pub fn solve(input: &str) -> i32 {
     return largest;
 }
 
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    static INPUT: &str = include_str!("./input.txt");
-
     #[test]
     fn verify_solution() {
-        assert_eq!(solve(INPUT), 65912);
+        assert_eq!(solve(super::super::INPUT), 65912);
     }
 }
