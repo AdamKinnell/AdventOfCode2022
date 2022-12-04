@@ -19,14 +19,14 @@ pub fn solve(input: &str) -> i32 {
 
 
 pub mod tests {
-    use super::*;
+    use criterion::Criterion;
 
     #[test]
     fn verify_solution() {
-        assert_eq!(solve(super::super::INPUT), 65912);
+        assert_eq!(super::solve(super::super::INPUT), 65912);
     }
 
-    pub fn benchmark() {
-        solve(super::super::INPUT);
+    pub fn benchmark(c: &mut Criterion) {
+        c.bench_function("day1_part1_solve1", |b| b.iter(|| super::solve(super::super::INPUT)));
     }
 }
