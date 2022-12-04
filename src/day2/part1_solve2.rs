@@ -5,13 +5,13 @@ fn value_round(round: &str) -> i32 {
     // [Them] [Us]
     match round {
         "A X" => 3 + 1, // Tie
-        "B X" => 6 + 1, // Win
-        "C X" => 0 + 1, // Lose
-        "A Y" => 0 + 2, // Lose
+        "B X" => 0 + 1, // Lose
+        "C X" => 6 + 1, // Win
+        "A Y" => 6 + 2, // Win
         "B Y" => 3 + 2, // Tie
-        "C Y" => 6 + 2, // Win
-        "A Z" => 6 + 3, // Win
-        "B Z" => 0 + 3, // Lose
+        "C Y" => 0 + 2, // Lose
+        "A Z" => 0 + 3, // Lose
+        "B Z" => 6 + 3, // Win
         "C Z" => 3 + 3, // Tie
         &_ => unreachable!()
     }
