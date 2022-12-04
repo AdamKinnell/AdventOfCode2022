@@ -22,7 +22,7 @@ pub fn solve2(input: &str) -> i32 {
         .coalesce(|prev, curr| {
             match (&prev, &curr) {
                 (Ok(x), Ok(y)) => Ok(Ok(x + y)),
-                (Ok(x), Err(_)) => Err((prev, curr)),
+                (Ok(_), Err(_)) => Err((prev, curr)),
                 (Err(_), Ok(y)) => Ok(Ok(*y)),
                 (Err(_), Err(_)) => Err((prev, curr)),
             }
