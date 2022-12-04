@@ -41,23 +41,23 @@ Sets are the easiest way to solve this and lead to the most readable code, but p
     While the complexity of this algorithim is quadratic, the small input size makes this ~4x faster than the overhead of creating and comparing sets.  
     `⌛O(m^2·n)` | `📦O(1)`, where n is the number of rucksacks and m is the size of each rucksack.
 + **Part 2**: Chunk into groups of 3 elves (rucksacks) and find the single item (char) present in all 3.  
-    We check the rucksacks smallest-to-largest to reduce the search space and quickly cull false possibilites.
+    We check the rucksacks smallest-to-largest to reduce the search space and quickly cull false possibilites.  
     `⌛O(m^3·n)` | `📦O(1)`, where n is the number of rucksacks and m is the size of each rucksack.`
 
 ### Day 4
 
 The most complicated part here is parsing each line into 4 numbers so we can perform comparisons on them. 6 lines - I wonder if we can do better?
 
-+ **Part 1**: For each pair, parse the 4 values and check if either range is fully contained within the other.
-    `⌛O(n)` | `📦O(1)`, where n is the number of elf pairs.
-+ **Part 2**: For each pair, parse the 4 values and check if the two ranges overlap.
++ **Part 1**: For each pair, parse the 4 values and check if either range is fully contained within the other.  
+    `⌛O(n)` | `📦O(1)`, where n is the number of elf pairs.  
++ **Part 2**: For each pair, parse the 4 values and check if the two ranges overlap.  
     `⌛O(n)` | `📦O(1)`, where n is the number of elf pairs.
 
 ### TEMPLATE
 
 TODO
 
-+ **Part 1**: TODO
++ **Part 1**: TODO  
     `⌛O(n)` | `📦O(1)`, where TODO
-+ **Part 2**: TODO
++ **Part 2**: TODO  
     `⌛O(n)` | `📦O(1)`, where TODO
