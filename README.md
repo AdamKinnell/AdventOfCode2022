@@ -11,6 +11,7 @@ Run benchmarks with `cargo bench`.
 ## Solution Descriptions
 
 ### Day 1
+
 For both parts we need to sum each continuous run of integers, seperated by blank lines. If only there was a `split` function on an `Iter` like there is on a `String` - I could have just written one 🤔.
 
 + **Part 1**: Track the largest sum and return it.  
@@ -20,6 +21,7 @@ For both parts we need to sum each continuous run of integers, seperated by blan
     `⌛O(n·log(n))` | `📦O(n)`, where n is the number of individual rations.
 
 ### Day 2
+
 For both parts we can calculate the scores of each round by a simple lookup table of 6 items. I maybe went a bit overboard with trying to design some nice structs for an alternate solution which turned out to be a rather complicated abstraction.
 
 The performance could be further improved by avoiding string handling and looking at the individual bytes which are always at a fixed offset from the last round.
@@ -41,3 +43,21 @@ Sets are the easiest way to solve this and lead to the most readable code, but p
 + **Part 2**: Chunk into groups of 3 elves (rucksacks) and find the single item (char) present in all 3.  
     We check the rucksacks smallest-to-largest to reduce the search space and quickly cull false possibilites.
     `⌛O(m^3·n)` | `📦O(1)`, where n is the number of rucksacks and m is the size of each rucksack.`
+
+### Day 4
+
+The most complicated part here is parsing each line into 4 numbers so we can perform comparisons on them. 6 lines - I wonder if we can do better?
+
++ **Part 1**: For each pair, parse the 4 values and check if either range is fully contained within the other.
+    `⌛O(n)` | `📦O(1)`, where n is the number of elf pairs.
++ **Part 2**: For each pair, parse the 4 values and check if the two ranges overlap.
+    `⌛O(n)` | `📦O(1)`, where n is the number of elf pairs.
+
+### TEMPLATE
+
+TODO
+
++ **Part 1**: TODO
+    `⌛O(n)` | `📦O(1)`, where TODO
++ **Part 2**: TODO
+    `⌛O(n)` | `📦O(1)`, where TODO
