@@ -1,5 +1,11 @@
-use std::str::Lines;
-use itertools::{Itertools, Chunk};
+use std::collections::HashSet;
+
+fn find_duplicate_item(rucksack: &str) -> char {
+    let (left, right) = rucksack.split_at(rucksack.len() / 2);
+    let left_items : HashSet<char> = HashSet::from_iter(left.chars());
+    let right_items : HashSet<char> = HashSet::from_iter(right.chars());
+    return *left_items.intersection(&right_items).next().unwrap();
+}
 
 fn find_item_value(item: char) -> i32 {
     match item {
@@ -9,33 +15,10 @@ fn find_item_value(item: char) -> i32 {
     }
 }
 
-fn find_badge_item(group: Chunk<Lines>) -> char {
-    let group = group
-    .sorted_by(|x,y| x.len().cmp(&y.len()))
-    .collect_vec();
-    
-    // Hardcoded to groups of size 3
-    assert_eq!(group.len(), 3);
-    for a in group[0].chars() {
-        for b in group[1].chars() {
-            if a == b {
-                for c in group[2].chars() {
-                    if b == c {
-                        return c;
-                    }
-                }
-            }
-        }
-    }
-    unreachable!()
-}
-
 pub fn solve(input: &str) -> i32 {
     input
         .lines()
-        .chunks(3)
-        .into_iter()
-        .map(|group| find_badge_item(group))
+        .map(|rucksack| find_duplicate_item(rucksack) )
         .map(|item| find_item_value(item))
         .sum()
 }
@@ -46,12 +29,12 @@ pub mod tests {
 
     #[test]
     fn verify_example() {
-        assert_eq!(super::solve(super::super::INPUT_EXAMPLE), 70);
+        assert_eq!(super::solve(super::super::INPUT_EXAMPLE), 157);
     }
 
     #[test]
     fn verify_solution() {
-        assert_eq!(super::solve(super::super::INPUT), 2567);
+        assert_eq!(super::solve(super::super::INPUT), 8072);
     }
 
     pub fn benchmark(c: &mut Criterion) {
@@ -61,4 +44,4 @@ pub mod tests {
         let id = day.to_owned() + "_" + solution; // dayX_partY_solveZ
         c.bench_function( &id, |b| b.iter(|| super::solve(super::super::INPUT)));
     }
-}
+}   

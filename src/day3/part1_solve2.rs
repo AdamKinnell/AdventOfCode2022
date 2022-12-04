@@ -1,11 +1,9 @@
-use std::collections::HashSet;
-
+use itertools::Itertools;
 
 fn find_duplicate_item(rucksack: &str) -> char {
     let (left, right) = rucksack.split_at(rucksack.len() / 2);
-    let left_items : HashSet<char> = HashSet::from_iter(left.chars());
-    let right_items : HashSet<char> = HashSet::from_iter(right.chars());
-    return *left_items.intersection(&right_items).next().unwrap();
+    let mut combinations = left.chars().cartesian_product(right.chars());
+    return combinations.find(|(x,y)| x == y).unwrap().0;
 }
 
 fn find_item_value(item: char) -> i32 {
