@@ -22,6 +22,11 @@ pub mod tests {
     use criterion::Criterion;
 
     #[test]
+    fn verify_example() {
+        assert_eq!(super::solve(super::super::INPUT_EXAMPLE), 24000);
+    }
+
+    #[test]
     fn verify_solution() {
         assert_eq!(super::solve(super::super::INPUT), 65912);
     }

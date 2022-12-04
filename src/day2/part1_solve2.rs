@@ -30,8 +30,7 @@ pub mod tests {
 
     #[test]
     fn verify_example() {
-        let input = "A Y\nB X\nC Z";
-        assert_eq!(super::solve(input), 15);
+        assert_eq!(super::solve(super::super::INPUT_EXAMPLE), 15);
     }
 
     #[test]
