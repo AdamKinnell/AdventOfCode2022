@@ -14,7 +14,7 @@ Run benchmarks with `cargo bench`.
 
 TODO
 
-+ **Part 1)**: TODO  
++ **Part 1**: TODO  
     `⌛O(n)` | `📦O(1)`, where TODO
 + **Part 2**: TODO  
     `⌛O(n)` | `📦O(1)`, where TODO
@@ -71,5 +71,25 @@ We could make this more efficient by avoiding the temporary array in Part 2. If 
 
 + **Part 1 (Solve 1)**: As above, while ensuring that multiple crates moved in a single command end up on the *opposite* order on the destination stack.  
     `⌛O(s + i)` | `📦O(s)`, where s is the number of squares in the crate diagram and i is the number of instructions.
-+ **Part 2 (Solve 1)**: As above, while ensuring that multiple crates moved in a single command end up on the *same* order on the destination stack.    
++ **Part 2 (Solve 1)**: As above, while ensuring that multiple crates moved in a single command end up on the *same* order on the destination stack.  
     `⌛O(s + i)` | `📦O(s)`, where s is the number of squares in the crate diagram and i is the number of instructions.
+
+### Day 6
+
+This day is about finding runs of 4 and 14 unique characters in a string, as well as the index of this run. My second solution for Part 2 was the most interesting an runs in 60% of the time as the first.
+
++ **Part 1**: Compare all characters in a 4-wide sliding window over the input (6 comparisons) and return the index of the found with unique characters.  
+    `⌛O(n·m^2)` | `📦O(1)`, where n is the length of the input and m is the length of the run to find.
++ **Part 2 (Solve 1)**: Iterate over each character in each 14-char sliding window and track if it was already found in this window using a fixed-size (26 element) array used as a lookup table. Return the index of the window with no duplicates.  
+    `⌛O(n·m)` | `📦O(1)`, where n is the length of the input and m is the length of the run to find.
++ **Part 2 (Solve 2)**: Slide the window across the input, but only handle two the two chars on the edges on each slide/iteration. We use lookup to track how many times we've seen each character and a counter so we know when we have no duplicates in our window.  
+    `⌛O(n)` | `📦O(1)`, where n is the length of the input and m is the length of the run to find.
+
+### Day 7
+
+TODO
+
++ **Part 1**: TODO  
+    `⌛O(n)` | `📦O(1)`, where TODO
++ **Part 2**: TODO  
+    `⌛O(n)` | `📦O(1)`, where TODO
