@@ -10,6 +10,16 @@ Run benchmarks with `cargo bench`.
 
 ## Solution Descriptions
 
+### TEMPLATE
+
+TODO
+
++ **Part 1)**: TODO  
+    `⌛O(n)` | `📦O(1)`, where TODO
++ **Part 2**: TODO  
+    `⌛O(n)` | `📦O(1)`, where TODO
+
+
 ### Day 1
 
 For both parts we need to sum each continuous run of integers, seperated by blank lines. If only there was a `split` function on an `Iter` like there is on a `String` - I could have just written one 🤔.
@@ -55,18 +65,11 @@ The most complicated part here is parsing each line into 4 numbers so we can per
 
 ### Day 5
 
-TODO
+Split the input into two parts - the crate diagram and a list of instructions. We parse the crate diagram into a 2d array of vectors and use the inner ones as stacks as we only ever touch the top elements in a single operation. The instructions are parsed in a fixed format and then applied to the stacks to move elements.
 
-+ **Part 1**: TODO  
-    `⌛O(n)` | `📦O(1)`, where TODO
-+ **Part 2**: TODO  
-    `⌛O(n)` | `📦O(1)`, where TODO
+We could make this more efficient by avoiding the temporary array in Part 2. If only `get_many_mut` was in Stable.
 
-### TEMPLATE
-
-TODO
-
-+ **Part 1**: TODO  
-    `⌛O(n)` | `📦O(1)`, where TODO
-+ **Part 2**: TODO  
-    `⌛O(n)` | `📦O(1)`, where TODO
++ **Part 1 (Solve 1)**: As above, while ensuring that multiple crates moved in a single command end up on the *opposite* order on the destination stack.  
+    `⌛O(s + i)` | `📦O(s)`, where s is the number of squares in the crate diagram and i is the number of instructions.
++ **Part 2 (Solve 1)**: As above, while ensuring that multiple crates moved in a single command end up on the *same* order on the destination stack.    
+    `⌛O(s + i)` | `📦O(s)`, where s is the number of squares in the crate diagram and i is the number of instructions.
