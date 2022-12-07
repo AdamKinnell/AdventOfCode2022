@@ -53,6 +53,15 @@ The most complicated part here is parsing each line into 4 numbers so we can per
 + **Part 2**: For each pair, parse the 4 values and check if the two ranges overlap.  
     `⌛O(n)` | `📦O(1)`, where n is the number of elf pairs.
 
+### Day 5
+
+TODO
+
++ **Part 1**: TODO  
+    `⌛O(n)` | `📦O(1)`, where TODO
++ **Part 2**: TODO  
+    `⌛O(n)` | `📦O(1)`, where TODO
+
 ### TEMPLATE
 
 TODO
