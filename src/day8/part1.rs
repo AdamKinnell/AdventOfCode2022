@@ -1,12 +1,12 @@
 use grid::*;
 use itertools::Itertools;
 
-struct Tree {
-    height: u8,
-    is_visible: bool
+pub struct Tree {
+    pub height: u8,
+    pub is_visible: bool
 }
 
-fn parse_trees(input: &str) -> Grid<Tree> {
+pub fn parse_trees(input: &str) -> Grid<Tree> {
     let width = input.find("\r\n").unwrap();
     let trees = input
         .bytes()
@@ -21,29 +21,6 @@ fn parse_trees(input: &str) -> Grid<Tree> {
 
     return Grid::from_vec(trees, width);
 }
-
-// fn print_trees(trees: &Grid<Tree>) {
-//     for x in 0..trees.cols() {
-//         for y in 0..trees.rows() {
-//             let char = trees[x][y].height + '0' as u8;
-//             print!("{}", char as char);
-//         }
-//         println!("");
-//     }
-// }
-
-// fn print_visibility(trees: &Grid<Tree>) {
-//     for x in 0..trees.cols() {
-//         for y in 0..trees.rows() {
-//             if trees[x][y].is_visible {
-//                 print!("{}",'V');
-//             } else {
-//                 print!("{}",'H');
-//             }
-//         }
-//         println!("");
-//     }
-// }
 
 pub fn solve(input: &str) -> usize {
     let mut trees = parse_trees(input);
