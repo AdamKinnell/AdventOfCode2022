@@ -41,6 +41,10 @@ pub fn solve(input: &str) -> usize {
                     tree.is_visible = true;
                 }
             }
+            if tree.height == 9 {
+                // All other trees along this ray are guaranteed to remain hidden
+                break;
+            }
         }
     }
     // println!("Visibility after rays from West:");
@@ -58,6 +62,10 @@ pub fn solve(input: &str) -> usize {
                     visible_trees += 1;
                     tree.is_visible = true;
                 }
+            }
+            if tree.height == 9 {
+                // All other trees along this ray are guaranteed to remain hidden
+                break;
             }
         }
     }
@@ -77,6 +85,10 @@ pub fn solve(input: &str) -> usize {
                     tree.is_visible = true;
                 }
             }
+            if tree.height == 9 {
+                // All other trees along this ray are guaranteed to remain hidden
+                break;
+            }
         }
     }
     //println!("Visibility after rays from East:");
@@ -94,6 +106,10 @@ pub fn solve(input: &str) -> usize {
                     visible_trees += 1;
                     tree.is_visible = true;
                 }
+            }
+            if tree.height == 9 {
+                // All other trees along this ray are guaranteed to remain hidden
+                break;
             }
         }
     }

@@ -98,9 +98,11 @@ TODO
 
 This day is about finding adjacent trees and distances from other trees. We start by parsing the input into a 2d array of heights (stored as bytes) and then proceed to cast rays to find visibilities and scores.
 
+An alternate solution for Part 1 (and the most obvious) would have been very similar to part 2 - alongside the scary complexity.
+
 My solution for Part 2 has scary complexity due to casting 4 rays from each and every tree. It feels like there should be a better solution... Maybe for each tree we could store the distance to a tree of each possible height in each direction, then cast a ray from each cardinal direction to calculate the values and a final pass to calculate the top scenic score 🤔. If that worked, the time complexity would be reduced to `O(4n + n) = O(n)`.
 
 + **Part 1**: Start with all trees marked as hidden, then cast rays from the edges along all 4 cardinal directions and mark the visible trees based on their height and if they are obsured by taller trees along the ray's path.  
     `⌛O(n)` | `📦O(n)`, where n is the number of trees
-+ **Part 2**: For each tree on the grid we 
++ **Part 2**: For each tree on the grid we cast a ray in each of the 4 cardinal directions to calculate it's scenic score.  
     `⌛O(n^3)` | `📦O(n)`, where n is the number of trees
