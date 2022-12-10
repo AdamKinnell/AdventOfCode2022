@@ -60,10 +60,6 @@ impl Snake {
         }
     }
 
-    fn print() {
-
-    }
-
 }
 
 pub fn solve(input: &str) -> usize {
