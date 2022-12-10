@@ -27,6 +27,10 @@ pub fn criterion_benchmark(c: &mut Criterion) {
 
     advent_of_code_2022::day8::part1::tests::benchmark(c);
     advent_of_code_2022::day8::part2::tests::benchmark(c);
+
+    advent_of_code_2022::day9::part1::tests::benchmark(c);
+    advent_of_code_2022::day9::part2::tests::benchmark(c);
+
 }
 
 criterion_group!(benches, criterion_benchmark);
