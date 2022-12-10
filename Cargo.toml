@@ -9,6 +9,7 @@ edition = "2021"
 criterion = "0.4.0"
 grid = "0.9.0"
 itertools = "0.10.5"
+num = "0.4.0"
 vector2d = "2.2.0"
 
 [[bench]]

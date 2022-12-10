@@ -47,7 +47,10 @@ impl Snake {
             let diff = parent_pos.sub(*part);
             if diff.length_squared() > 2 {
                 // The parent moved too far away and we have to move this part too
-                let movement = Vector2D {x: diff.x.min(1), y: diff.y.min(1)};
+                let movement = Vector2D {
+                    x: num::clamp(diff.x, -1, 1),
+                    y: num::clamp(diff.y, -1, 1),
+                };
                 part.add_assign(movement);
                 parent_pos = *part;
             } else {
@@ -93,7 +96,7 @@ pub mod tests {
 
     #[test]
     fn verify_solution() {
-        assert_eq!(super::solve(super::super::INPUT), 1);
+        assert_eq!(super::solve(super::super::INPUT), 2367);
     }
 
     pub fn benchmark(c: &mut Criterion) {

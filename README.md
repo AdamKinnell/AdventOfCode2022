@@ -106,3 +106,12 @@ My solution for Part 2 has scary complexity due to casting 4 rays from each and 
     `⌛O(n)` | `📦O(n)`, where n is the number of trees
 + **Part 2**: For each tree on the grid we cast a ray in each of the 4 cardinal directions to calculate it's scenic score.  
     `⌛O(n^3)` | `📦O(n)`, where n is the number of trees
+
+### Day 9
+
+Simulating rope! We track the 2D positions of each rope knot and update them on each movement.
+
++ **Part 1**: Simulate the head movements and check if the tail is still adjacent. If not we move the tail to the last head position.  
+    `⌛O(n)` | `📦O(1)`, where n is the number of head movements.
++ **Part 2**: Simulate the head movements and iteratively update the tail positions if they are too far from the head. We use a clamped vector (-1,1 for x and y) to move each component adjacent to it's parent again.  
+    `⌛O(n·m)` | `📦O(1)`, where n is the number of head movements and m is the tail length.
