@@ -44,8 +44,21 @@ impl Snake {
         // Move tail parts one-by-one
         let mut parent_pos = self.parts[0];
         for part in &mut self.parts[1..] {
-            // TODO
+            let diff = parent_pos.sub(*part);
+            if diff.length_squared() > 2 {
+                // The parent moved too far away and we have to move this part too
+                let movement = Vector2D {x: diff.x.min(1), y: diff.y.min(1)};
+                part.add_assign(movement);
+                parent_pos = *part;
+            } else {
+                // If this part doesn't move, later parts won't either.
+                break;
+            }
         }
+    }
+
+    fn print() {
+
     }
 
 }
