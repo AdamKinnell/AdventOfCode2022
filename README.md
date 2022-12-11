@@ -120,9 +120,9 @@ We simulate every single step of movement and every square moved but I haven't f
 
 ### Day 10
 
-TODO
+We create an iterator which consumes opcodes and outputs the value of the `x` register at each cycle (it also takes into account noops and multi-cycle instructions). We then simply consume this iterator to perform the calculations we need at each cycle/time step.
 
-+ **Part 1**: TODO  
-    `⌛O(n)` | `📦O(1)`, where TODO
-+ **Part 2**: TODO  
-    `⌛O(n)` | `📦O(1)`, where TODO
++ **Part 1**: Calculate the signal strength from the nth elements (cycles) of the iterator.  
+    `⌛O(n)` | `📦O(1)`, where n is the number of commands.
++ **Part 2**: Calculate the pixel value on each cycle based on the distance from the center of the sprite (`x` register value) and output them formatted in a 40x6 grid.
+    `⌛O(n)` | `📦O(n)`, where n is the number of commands/cycles/pixels.
