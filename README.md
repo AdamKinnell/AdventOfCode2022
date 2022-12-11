@@ -117,3 +117,12 @@ We simulate every single step of movement and every square moved but I haven't f
     `⌛O(n)` | `📦O(1)`, where n is the number of head movements.
 + **Part 2**: Simulate the head movements and iteratively update the tail positions if they are too far from the head. We use a clamped vector (-1,1 for x and y) to move each component adjacent to it's parent again.  
     `⌛O(n·m)` | `📦O(1)`, where n is the number of head movements and m is the tail length.
+
+### Day 10
+
+TODO
+
++ **Part 1**: TODO  
+    `⌛O(n)` | `📦O(1)`, where TODO
++ **Part 2**: TODO  
+    `⌛O(n)` | `📦O(1)`, where TODO
