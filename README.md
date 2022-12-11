@@ -89,9 +89,9 @@ This day is about finding runs of 4 and 14 unique characters in a string, as wel
 
 The directory traveral commands in our input are the result of a depth-first search of an arbitrary directory tree. Using this assumption, we can simplify the traversal tracking logic to only consider when we actually change directories (the names don't matter at all) and the size of files in a directory.
 
-+ **Part 1**: Sum all directories which contain files (directly, or indirectly in child directories) with a combined size of <= 100,000.
-    `⌛O(n)` | `📦O(m)`, where n is the number of directories we have to traverse, and m is the depth of the directory tree.
-+ **Part 2**: Calculate and store the sizes of all directories in an array. Then we determine how much additional space we need (based on the size of the root directory and known constants) and proceed to find the smallest single directory which is larger that this.
++ **Part 1**: Sum all directories which contain files (directly, or indirectly in child directories) with a combined size of <= 100,000.  
+    `⌛O(n)` | `📦O(m)`, where n is the number of directories we have to traverse, and m is the depth of the directory tree.  
++ **Part 2**: Calculate and store the sizes of all directories in an array. Then we determine how much additional space we need (based on the size of the root directory and known constants) and proceed to find the smallest single directory which is larger that this.  
     `⌛O(n)` | `📦O(n)`, where n is the number of directories we have to traverse.
 
 ### Day 8
@@ -124,5 +124,5 @@ We create an iterator which consumes opcodes and outputs the value of the `x` re
 
 + **Part 1**: Calculate the signal strength from the nth elements (cycles) of the iterator.  
     `⌛O(n)` | `📦O(1)`, where n is the number of commands.
-+ **Part 2**: Calculate the pixel value on each cycle based on the distance from the center of the sprite (`x` register value) and output them formatted in a 40x6 grid.
++ **Part 2**: Calculate the pixel value on each cycle based on the distance from the center of the sprite (`x` register value) and output them formatted in a 40x6 grid.  
     `⌛O(n)` | `📦O(n)`, where n is the number of commands/cycles/pixels.
