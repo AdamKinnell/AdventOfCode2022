@@ -111,6 +111,8 @@ My solution for Part 2 has scary complexity due to casting 4 rays from each and 
 
 Simulating rope! We track the 2D positions of each rope knot and update them on each movement.
 
+We simulate every single step of movement and every square moved but I haven't found a way to avoid this - especially for the 10-knot rope in Part 2.
+
 + **Part 1**: Simulate the head movements and check if the tail is still adjacent. If not we move the tail to the last head position.  
     `⌛O(n)` | `📦O(1)`, where n is the number of head movements.
 + **Part 2**: Simulate the head movements and iteratively update the tail positions if they are too far from the head. We use a clamped vector (-1,1 for x and y) to move each component adjacent to it's parent again.  
