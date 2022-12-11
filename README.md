@@ -87,12 +87,12 @@ This day is about finding runs of 4 and 14 unique characters in a string, as wel
 
 ### Day 7
 
-TODO
+The directory traveral commands in our input are the result of a depth-first search of an arbitrary directory tree. Using this assumption, we can simplify the traversal tracking logic to only consider when we actually change directories (the names don't matter at all) and the size of files in a directory.
 
-+ **Part 1**: TODO  
-    `⌛O(n)` | `📦O(1)`, where TODO
-+ **Part 2**: TODO  
-    `⌛O(n)` | `📦O(1)`, where TODO
++ **Part 1**: Sum all directories which contain files (directly, or indirectly in child directories) with a combined size of <= 100,000.
+    `⌛O(n)` | `📦O(m)`, where n is the number of directories we have to traverse, and m is the depth of the directory tree.
++ **Part 2**: Calculate and store the sizes of all directories in an array. Then we determine how much additional space we need (based on the size of the root directory and known constants) and proceed to find the smallest single directory which is larger that this.
+    `⌛O(n)` | `📦O(n)`, where n is the number of directories we have to traverse.
 
 ### Day 8
 
