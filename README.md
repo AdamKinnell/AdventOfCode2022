@@ -131,17 +131,20 @@ We create an iterator which consumes opcodes and outputs the value of the `x` re
 
 For this one I hardcoded the monkey definitions for both the example and the input to avoid parsing them 😅. We loop over the monkeys in each round to process which monkeys their items should end up with.
 
-This gets interesting in Part 2, as there is no longer a safely of dividing each item's worry level by 3. This results in overflows of even a 64-bit `usize` type as we run 10000 cycles (Not surprising, given the 4th monkey squares their items every cycle).
+This gets interesting in Part 2, as there is no longer a safely of dividing each item's worry level by 3. This results in overflows of even a 64-bit `usize` type as we run 10000 rounds (Not surprising, given the 4th monkey squares their items every round).
 
-The key is that the only property of each item's value we actually care about is the divisibility check that lets each monkey determine who to throw to. If we moduo each item by the LCM of all divisors we test against, the result will remain unchanged but we avoid overflow.
+The key is that the only property of each item's value we actually care about is the divisibility check that lets each monkey determine who to throw to. If we modulo each item by the LCM of all divisors we test against, the result will remain unchanged but we avoid overflow.
+
+For a larger number of rounds we can also check if there are any repetitions and if at some point the monkey states start to repeat themselves. **Part 2 (Solve 2)** shows an implementation where we keep track of the number of monkey inspections on each round as well as a hash of the monkey's state. Once we find a round state that we've seen before, we know this will continue to infinity and we can look back in the history to calculate the expected number of inspections of each monkey by the 10000th round.
 
 Possible improvements include:
  + Using an `i32` instead of a `usize` for state. We actually only need to worry about overflow in the `x*x` operations, so we could just perform the multiply there and convert back to `i32` after the modulo.
  + Using a better squaring-modulo algorithm to avoid overflow with `i32` data types entirely.
- + Looking at improvements to the algorithm to avoid running 10,000 iterations - perhaps by looking for cycles in the output.
  + ~~Calculate the *actual* LCM (least-common-multiple) of all divisors to use for reducing the size of each item. Right now we naievely multiply them all together.~~ Actually, this won't help, as the divisors are all prime numbers so multiplying them all together *is* the LCM. 
 
 + **Part 1**: Run 20 iterations and return the product of the top-2 inspect counts.  
-    `⌛O(n·m)` | `📦O(n)`, where n is the number of monkeys and m is the number of cycles.
-+ **Part 2**: Run 10000 iterations and return the product of the top-2 inspect counts.  
-    `⌛O(n·m)` | `📦O(n)`, where n is the number of monkeys and m is the number of cycles.
+    `⌛O(n·m)` | `📦O(n)`, where n is the number of monkeys and m is the number of rounds.
++ **Part 2 (Solve 1)**: Run 10000 iterations and return the product of the top-2 inspect counts.  
+    `⌛O(n·m)` | `📦O(n·m)`, where n is the number of monkeys and m is the number of rounds.
++ **Part 2 (Solve 2)**: Run 10000 iterations and return the product of the top-2 inspect counts. We also check for and skip cycles in the monkey states to avoid similating all 10000 rounds.  
+    `⌛O(n·m)` | `📦O(n·m))`, where n is the number of monkeys and m is the number of rounds.
