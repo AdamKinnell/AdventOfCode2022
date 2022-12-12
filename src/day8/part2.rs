@@ -85,23 +85,22 @@ pub mod tests {
     use criterion::Criterion;
     use std::path::Path;
 
-    use super::{parse_trees, calc_scenic_score};
 
     #[test]
     fn verify_scenic_score_a() {
-        let trees = parse_trees(
+        let trees = super::parse_trees(
         "000\r\n\
          010\r\n\
          000\r\n"
         );
 
-        assert_eq!(calc_scenic_score(&trees, 1, 1), 1)
+        assert_eq!(super::calc_scenic_score(&trees, 1, 1), 1)
     }
 
     #[test]
     fn verify_scenic_score_example() {
-        let trees = parse_trees(super::super::INPUT_EXAMPLE);
-        assert_eq!(calc_scenic_score(&trees, 3, 2), 8)
+        let trees = super::parse_trees(super::super::INPUT_EXAMPLE);
+        assert_eq!(super::calc_scenic_score(&trees, 3, 2), 8)
     }
 
 

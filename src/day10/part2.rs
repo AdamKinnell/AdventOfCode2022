@@ -1,5 +1,3 @@
-use itertools::Itertools;
-
 use super::lib::get_cycle_iterator;
 
 pub fn solve(input: &str) -> String {

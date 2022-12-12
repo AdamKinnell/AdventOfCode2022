@@ -1,5 +1,5 @@
 use vector2d::Vector2D;
-use std::{collections::HashSet, ops::{Add, Sub, AddAssign}};
+use std::{collections::HashSet, ops::{Sub, AddAssign}};
 
 trait ToTuple {
     fn to_tuple(&self) -> (i32, i32);
