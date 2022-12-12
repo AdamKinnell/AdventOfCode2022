@@ -126,3 +126,22 @@ We create an iterator which consumes opcodes and outputs the value of the `x` re
     `⌛O(n)` | `📦O(1)`, where n is the number of commands.
 + **Part 2**: Calculate the pixel value on each cycle based on the distance from the center of the sprite (`x` register value) and output them formatted in a 40x6 grid.  
     `⌛O(n)` | `📦O(n)`, where n is the number of commands/cycles/pixels.
+
+### Day 11
+
+For this one I hardcoded the monkey definitions for both the example and the input to avoid parsing them 😅. We loop over the monkeys in each round to process which monkeys their items should end up with.
+
+This gets interesting in Part 2, as there is no longer a safely of dividing each item's worry level by 3. This results in overflows of even a 64-bit `usize` type as we run 10000 cycles (Not surprising, given the 4th monkey squares their items every cycle).
+
+The key is that the only property of each item's value we actually care about is the divisibility check that lets each monkey determine who to throw to. If we moduo each item by the LCM of all divisors we test against, the result will remain unchanged but we avoid overflow.
+
+Possible improvements include:
+ + Using an `i32` instead of a `usize` for state. We actually only need to worry about overflow in the `x*x` operations, so we could just perform the multiply there and convert back to `i32` after the modulo.
+ + Using a better squaring-modulo algorithm to avoid overflow with `i32` data types entirely.
+ + Looking at improvements to the algorithm to avoid running 10,000 iterations - perhaps by looking for cycles in the output.
+ + ~~Calculate the *actual* LCM (least-common-multiple) of all divisors to use for reducing the size of each item. Right now we naievely multiply them all together.~~ Actually, this won't help, as the divisors are all prime numbers so multiplying them all together *is* the LCM. 
+
++ **Part 1**: Run 20 iterations and return the product of the top-2 inspect counts.  
+    `⌛O(n·m)` | `📦O(n)`, where n is the number of monkeys and m is the number of cycles.
++ **Part 2**: Run 10000 iterations and return the product of the top-2 inspect counts.  
+    `⌛O(n·m)` | `📦O(n)`, where n is the number of monkeys and m is the number of cycles.
