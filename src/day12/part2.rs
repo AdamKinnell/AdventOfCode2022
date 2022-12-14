@@ -1,6 +1,11 @@
+use super::lib::{Map, MapSquare, dijkstra_find_shortest_path_length};
 
 pub fn solve(input: &str) -> i32 {
-    -1
+    let map = Map::new_from_string(input);
+    let can_move_to = |to: &MapSquare, from: &MapSquare| to.get_height() <= from.get_height() + 1;
+    let start = map.find_first(&MapSquare::Goal);
+    let goal = MapSquare::Terrain(0);
+    return dijkstra_find_shortest_path_length(&map, start, &goal, &can_move_to).unwrap();
 }
 
 pub mod tests {
@@ -9,7 +14,7 @@ pub mod tests {
 
     #[test]
     fn verify_example() {
-        assert_eq!(super::solve(super::super::INPUT_EXAMPLE), -1);
+        assert_eq!(super::solve(super::super::INPUT_EXAMPLE), 522);
     }
 
     #[test]

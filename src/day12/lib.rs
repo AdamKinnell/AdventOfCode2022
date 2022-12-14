@@ -1,5 +1,6 @@
 use grid::*;
 use itertools::Itertools;
+use std::collections::VecDeque;
 
 #[derive(Eq, PartialEq)]
 pub enum MapSquare {
@@ -69,7 +70,7 @@ impl Map {
     }
 }
 
-pub fn find_traversable_neighbors(map: &Map, position: Position2D) -> Vec<(Position2D, &MapSquare)> {
+pub fn find_traversable_neighbors<'a>(map: &'a Map, position: Position2D, can_move_to: &impl Fn(&MapSquare, &MapSquare) -> bool) -> Vec<(Position2D, &'a MapSquare)> {
     let this_square = map.get_square_at(&position).unwrap();
 
     let adjacent_positions = [
@@ -81,7 +82,7 @@ pub fn find_traversable_neighbors(map: &Map, position: Position2D) -> Vec<(Posit
 
     return adjacent_positions.iter().filter_map(|neighbor_position| {
         if let Some(square) = map.get_square_at(&neighbor_position) {
-            if square.get_height() <= this_square.get_height() + 1 {
+            if can_move_to(&this_square, &square) {
                 return Some((*neighbor_position, square));
             } else {
                 return None;
@@ -90,4 +91,46 @@ pub fn find_traversable_neighbors(map: &Map, position: Position2D) -> Vec<(Posit
             return None;
         }
     }).collect_vec();
+}
+
+// Dijkstra's algorithm
+pub fn dijkstra_find_shortest_path_length(map: &Map, start: Position2D, goal: &MapSquare, can_move_to: &impl Fn(&MapSquare, &MapSquare) -> bool) -> Option<i32> {
+        let mut unvisited_squares = VecDeque::new();
+        let mut algorithm_state = Grid::init(map.grid.rows(), map.grid.cols(), (-1, None));
+    
+        unvisited_squares.push_back(start);
+        *algorithm_state.get_mut(start.y as usize, start.x as usize).unwrap() = (-1, Some(start));
+    
+        // Find shortest path
+        while !unvisited_squares.is_empty() {
+            let position = unvisited_squares.pop_front().unwrap();
+            let (distance, prev) = *algorithm_state.get(position.y as usize, position.x as usize).unwrap();
+            let prev = prev.unwrap();
+    
+            if distance != -1 {
+                // Already visited
+                continue;
+            }
+    
+            // Update distance of this square from start
+            let (prev_distance, _) = *algorithm_state.get(prev.y as usize, prev.x as usize).unwrap();
+            let (this_distance, _) = algorithm_state.get_mut(position.y as usize, position.x as usize).unwrap();
+            *this_distance = prev_distance + 1;
+    
+            // Queue all neighbors to be visited
+            let neighbors = find_traversable_neighbors(&map, position, can_move_to);
+            for (neighbor_position, neighbor_square) in neighbors {
+                let (_, neighbor_previous) = algorithm_state.get_mut(neighbor_position.y as usize, neighbor_position.x as usize).unwrap();
+                *neighbor_previous = Some(position);
+                unvisited_squares.push_back(neighbor_position);
+    
+                if neighbor_square == goal {
+                    // We found the goal and the path to it
+                    return Some(prev_distance + 2); // distance of previous + this tile (1) + neighbor/goal tile (1)
+                }
+            }
+        }
+
+    //
+    return None;
 }

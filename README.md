@@ -10,6 +10,9 @@ Run benchmarks with `cargo bench`.
 
 ## Solution Descriptions
 
+⌛ = Time complexity of solution
+📦 = Space complexity of solution
+
 ### TEMPLATE
 
 TODO
@@ -150,9 +153,12 @@ Possible improvements include:
 
 ### Day 12
 
-TODO: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+We're tasked to find the length of the shortest route between two points on map considering the traversal requirmements between squares of different heights. We use a simplified version of Dijkstra's algorithm that considers all edges to have the same weight (i.e. moving from one square to any valid adjacent square is always a distance of 1).
 
-+ **Part 1**: TODO  
-    `⌛O(n)` | `📦O(1)`, where TODO
-+ **Part 2**: TODO  
-    `⌛O(n)` | `📦O(1)`, where TODO
+Possible improvements include:        
+ + Make this solution truly work for any input in Part 2 by also allowing it to still find the marked starting point if it's actually the closest of all level `a` map squares.
+
+> **Part 1**: Find the shortest path from the marked starting point to the marked goal.  
+    `⌛O(n)` | `📦O(n)`, where n is the number of map squares.  
+> **Part 2**: Find the shortest path from the marked goal to the closest square at level `a`. The algorithm  is essentially reversed in direction from Part 1.  
+    `⌛O(n)` | `📦O(n)`, where n is the number of map squares.
