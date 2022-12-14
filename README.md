@@ -19,7 +19,6 @@ TODO
 + **Part 2**: TODO  
     `⌛O(n)` | `📦O(1)`, where TODO
 
-
 ### Day 1
 
 For both parts we need to sum each continuous run of integers, seperated by blank lines. If only there was a `split` function on an `Iter` like there is on a `String` - I could have just written one 🤔.
@@ -148,3 +147,12 @@ Possible improvements include:
     `⌛O(n·m)` | `📦O(n·m)`, where n is the number of monkeys and m is the number of rounds.
 + **Part 2 (Solve 2)**: Run 10000 iterations and return the product of the top-2 inspect counts. We also check for and skip cycles in the monkey states to avoid similating all 10000 rounds.  
     `⌛O(n·m)` | `📦O(n·m))`, where n is the number of monkeys and m is the number of rounds.
+
+### Day 12
+
+TODO: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+
++ **Part 1**: TODO  
+    `⌛O(n)` | `📦O(1)`, where TODO
++ **Part 2**: TODO  
+    `⌛O(n)` | `📦O(1)`, where TODO
