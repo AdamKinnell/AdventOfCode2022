@@ -175,3 +175,12 @@ Possible improvements include:
 &ensp;&ensp;`⌛O((n·m) * log(n·m))` | `📦O(n+m))`, where n is the number of packets and m is the length of each packet.
 > **Part 2 (Solve 2)**: For each of the two divider packets, we count the number of input packets that would come before it (`2n` comparisons) and therefore allow us to find it's effective index to save us from sorting the entire list.
 &ensp;&ensp;`⌛O(n*m)` | `📦O(n+m))`, where n is the number of packets and m is the length of each packet.
+
+### Day 14
+
+TODO
+
+> **Part 1**: TODO  
+&ensp;&ensp;`⌛O(n)` | `📦O(1)`, where TODO  
+> **Part 2**: TODO  
+&ensp;&ensp;`⌛O(n)` | `📦O(1)`, where TODO
