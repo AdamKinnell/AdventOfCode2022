@@ -11,7 +11,7 @@ Run benchmarks with `cargo bench`.
 ## Solution Descriptions
 
 ⌛ = Time complexity of solution
-📦 = Space complexity of solution
+📦 = Space complexity of solution (not including the input string)
 
 ### TEMPLATE
 
@@ -161,3 +161,17 @@ Possible improvements include:
 &ensp;&ensp;`⌛O(n)` | `📦O(n)`, where n is the number of map squares.  
 > **Part 2**: Find the shortest path from the marked goal to the closest square at level `a`. The algorithm  is essentially reversed in direction from Part 1.  
 &ensp;&ensp;`⌛O(n)` | `📦O(n)`, where n is the number of map squares.
+
+### Day 13
+
+This problem involves sorting string packets which consist of nested lists and integer.
+
+Possible improvements include:
+ + Use a more efficient packet comparison algorithm that doesn't require any allocations. This would avoid adding `m` to the space complexity and also result in a sizable speedup.
+
+> **Part 1**: Compare each pair of packets and sum the indices of pairs in the correct order.  
+&ensp;&ensp;`⌛O(n·m)` | `📦O(m)`, where n is the number of packets and m is the length of each packet.  
+> **Part 2 (Solve 1)**: Sort all individual packets into the correct order and multiply the indices of two specific packets in the resulting sorted list.  
+&ensp;&ensp;`⌛O((n·m) * log(n·m))` | `📦O(n+m))`, where n is the number of packets and m is the length of each packet.
+> **Part 2 (Solve 2)**: For each of the two divider packets, we count the number of input packets that would come before it (`2n` comparisons) and therefore allow us to find it's effective index to save us from sorting the entire list.
+&ensp;&ensp;`⌛O(n*m)` | `📦O(n+m))`, where n is the number of packets and m is the length of each packet.
