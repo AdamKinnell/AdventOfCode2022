@@ -14,12 +14,12 @@ pub mod tests {
 
     #[test]
     fn verify_example() {
-        assert_eq!(super::solve(super::super::INPUT_EXAMPLE), 522);
+        assert_eq!(super::solve(super::super::INPUT_EXAMPLE), 29);
     }
 
     #[test]
     fn verify_solution() {
-        assert_eq!(super::solve(super::super::INPUT), -1);
+        assert_eq!(super::solve(super::super::INPUT), 522);
     }
 
     pub fn benchmark(c: &mut Criterion) {
