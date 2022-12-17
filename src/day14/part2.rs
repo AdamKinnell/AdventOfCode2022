@@ -2,7 +2,7 @@ use super::lib::{Position2D, Cave, parse_cave};
 
 fn simulate_sand(cave: &Cave, start: Position2D, floor: usize) -> Option<Position2D> {
 
-    let is_blocked = |position: &Position2D| position.y >= floor + 2 || cave.is_blocked(position);
+    let is_blocked = |position: &Position2D| position.y > floor || cave.is_blocked(position);
 
     let mut sand = start;
     loop {
