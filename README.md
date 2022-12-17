@@ -180,10 +180,11 @@ Possible improvements include:
 
 This was a fun one about simulating falling sand. I initially used a `HashMap<Position2D>` to store a sparse representation of cave tiles blocked by rocks and sand, but after benchmarking, an 2D array of `Grid<bool>` the simulated cave area is both faster (1/10 the time) and takes less memory (`> 22k * 16 bytes` down to `~50k * 1 byte`). The utilisation of the cave space ends up being around 50% which isn't worth the overhead of a sparse data structure in this instance.
 
-Possible improvements include:
- + Improving the falling sand algorithm by taking into account that the next block of sand, dropped from the same place, will mostly adhere to the path of the previous block. We could store each position in a stack (to represent the travel path of the previous block) and start our seach for the resting position of the next block around the end position of the previous one.
+For Part 2 Solve 2, I improved the falling sand algorithm by taking into account that the next block of sand, dropped from the same place, will mostly adhere to the path of the previous block. We store each sand block movement in a stack (to represent the travel path of the previous block) and start our seach for the resting position of the next block above the end position of the previous one.
 
 > **Part 1**: Simulate sand until a block moves down past the lowest level (highest `y`) of rock formations.  
 &ensp;&ensp;`⌛O(n^3)` | `📦O(n)`, where n is the size of the simulated area.  
-> **Part 2**: Simulate sand until it gets high enough to block the sand spout.  
-&ensp;&ensp;`⌛O(n^3)` | `📦O(n)`, where n is the size of the simulated area.
+> **Part 2 (Solve 1)**: Simulate sand until it gets high enough to block the sand spout.  
+&ensp;&ensp;`⌛O(n^3)` | `📦O(n)`, where n is the size of the simulated area.  
+> **Part 2 (Solve 2)**: Simulate sand until it gets high enough to block the sand spout. We also use a cache to avoid simulating the entire sand fall path each time.  
+&ensp;&ensp;`⌛O(n^2 · log(n))` | `📦O(n)`, where n is the size of the simulated area.
