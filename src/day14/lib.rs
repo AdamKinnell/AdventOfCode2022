@@ -1,7 +1,5 @@
-use std::collections::{HashSet};
 use grid::Grid;
 use itertools::Itertools;
-use num::integer::Roots;
 
 #[derive(Clone, Eq, PartialEq, Hash, Debug, Copy)]
 pub struct Position2D {
@@ -43,7 +41,7 @@ impl Cave {
         return self.offset_y + self.blocked.rows() - 1;
     }
 
-    pub fn print(&self, min: Position2D, max: Position2D) {
+    pub fn print(&self) {
         for y in 0..self.blocked.rows() {
             for x in 0..self.blocked.cols() {
                 if self.is_blocked(&Position2D { x,y }) {
