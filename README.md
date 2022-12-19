@@ -188,3 +188,14 @@ For Part 2 Solve 2, I improved the falling sand algorithm by taking into account
 &ensp;&ensp;`⌛O(n^3)` | `📦O(n)`, where n is the size of the simulated area.  
 > **Part 2 (Solve 2)**: Simulate sand until it gets high enough to block the sand spout. We also use a cache to avoid simulating the entire sand fall path each time.  
 &ensp;&ensp;`⌛O(n^2 · log(n))` | `📦O(n)`, where n is the size of the simulated area.
+
+### Day 15
+
+For Part 1, we are tasked with finding the total number of points on a single row that are overlapped from diamonds centered on each probe and sized by their nearest beacon. This is simple enough to do with intervals (and a library) to avoid double-counting overlaps.
+
+For Part 2, we can take the same idea but instead find which row of the 4,000,000 row search space has a gap between two intervals. My current solution takes ~40 seconds to run in release mode as it runs 4m times 😱. IT was quick to implement after Part 1, but it definitely is not efficient.
+
+> **Part 1**: Find the size of the interval on row `x` based on overlapping ranges.
+&ensp;&ensp;`⌛O(n)` | `📦O(1)`, where n is the number of probes  
+> **Part 2**: Find the row with a disjoint interval formed by overlapping ranges.
+&ensp;&ensp;`⌛O(n·m)` | `📦O(1)`, where n is the number of probes and m is the y search range
