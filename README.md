@@ -172,8 +172,8 @@ Possible improvements include:
 > **Part 1**: Compare each pair of packets and sum the indices of pairs in the correct order.  
 &ensp;&ensp;`⌛O(n·m)` | `📦O(m)`, where n is the number of packets and m is the length of each packet.  
 > **Part 2 (Solve 1)**: Sort all individual packets into the correct order and multiply the indices of two specific packets in the resulting sorted list.  
-&ensp;&ensp;`⌛O((n·m) * log(n·m))` | `📦O(n+m))`, where n is the number of packets and m is the length of each packet.
-> **Part 2 (Solve 2)**: For each of the two divider packets, we count the number of input packets that would come before it (`2n` comparisons) and therefore allow us to find it's effective index to save us from sorting the entire list.
+&ensp;&ensp;`⌛O((n·m) * log(n·m))` | `📦O(n+m))`, where n is the number of packets and m is the length of each packet.  
+> **Part 2 (Solve 2)**: For each of the two divider packets, we count the number of input packets that would come before it (`2n` comparisons) and therefore allow us to find it's effective index to save us from sorting the entire list.  
 &ensp;&ensp;`⌛O(n*m)` | `📦O(n+m))`, where n is the number of packets and m is the length of each packet.
 
 ### Day 14
@@ -193,9 +193,11 @@ For Part 2 Solve 2, I improved the falling sand algorithm by taking into account
 
 For Part 1, we are tasked with finding the total number of points on a single row that are overlapped from diamonds centered on each probe and sized by their nearest beacon. This is simple enough to do with intervals (and a library) to avoid double-counting overlaps.
 
-For Part 2, we can take the same idea but instead find which row of the 4,000,000 row search space has a gap between two intervals. My current solution takes ~40 seconds to run in release mode as it runs 4m times 😱. IT was quick to implement after Part 1, but it definitely is not efficient.
+For Part 2, we can take the same idea but instead find which row of the 4,000,000 row search space has a gap between two intervals. My current solution takes ~7 seconds to run in release mode as it runs 4m times 😱. It was quick to implement after Part 1, but it definitely is not efficient.
 
-> **Part 1**: Find the size of the interval on row `x` based on overlapping ranges.
+Possible improvements for Part 2 would involve a better algorithm or further profiling to find quick wins in the current one.
+
+> **Part 1**: Find the size of the interval on row `x` based on overlapping ranges.  
 &ensp;&ensp;`⌛O(n)` | `📦O(1)`, where n is the number of probes  
-> **Part 2**: Find the row with a disjoint interval formed by overlapping ranges.
+> **Part 2**: Find the row with a disjoint interval formed by overlapping ranges.  
 &ensp;&ensp;`⌛O(n·m)` | `📦O(1)`, where n is the number of probes and m is the y search range
