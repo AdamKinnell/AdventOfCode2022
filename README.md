@@ -204,9 +204,17 @@ Possible improvements for Part 2 would involve a better algorithm or further pro
 
 ### Day 16
 
-This one took me a long time to get working. I had a lot of different ideas for this one, but it turned out that my original idea was both the fastest and the best.
+This one took me a long time to get working for both parts. I ended up reading about other people's approaches before I got a working solution, though I didn't copy any code and re-implemented everything myself.
 
-> **Part 1**: TODO  
-&ensp;&ensp;`⌛O(n^n)` | `📦O(n)`, where n is the number of valves.  
-> **Part 2**: TODO  
-&ensp;&ensp;`⌛O(n)` | `📦O(1)`, where n is the number of valves.
+1. Parse the input into a directed graph.
+2. Create matrix to find the distance of each valve to all other valves.
+3. Find all valves that we would care about travelling to (has a flow rate).
+
+For Part 1, we then perform a depth-first search across all possible orderings of useful valves to see which results in the highest pressure release after 30 minutes. I originally tried a greedy algorithm, but it wasn't quite optimal. 
+
+For Part 2, we know that 2 independent actors will take 2 disjoint paths through the available valves (where a path includes a valve that is turned on), as we can't turn on the same valve twice. We build on the algorithm in Part 1, but instead return all subsets of possible paths along with their total pressure release. The solution must then be the maximim sum of the pressure releases of two of these disjoint paths. We can efficiently find this pair by sorting the list of paths by total pressure release and starting a `N^2` comparison with early exit.
+
+> **Part 1**: Find the path which results in the highest pressure release, assuming 1 actor.  
+&ensp;&ensp;`⌛O(n!)` | `📦O(n)`, where n is the number of valves.  
+> **Part 2**: Find the path which results in the highest pressure release, assuming 2 actors.  
+&ensp;&ensp;`⌛O(n! · n)` | `📦O(n!)`, where n is the number of valves.
