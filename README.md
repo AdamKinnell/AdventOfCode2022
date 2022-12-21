@@ -201,3 +201,12 @@ Possible improvements for Part 2 would involve a better algorithm or further pro
 &ensp;&ensp;`⌛O(n)` | `📦O(1)`, where n is the number of probes  
 > **Part 2**: Find the row with a disjoint interval formed by overlapping ranges.  
 &ensp;&ensp;`⌛O(n·m)` | `📦O(1)`, where n is the number of probes and m is the y search range
+
+### Day 16
+
+This one took me a long time to get working. I had a lot of different ideas for this one, but it turned out that my original idea was both the fastest and the best.
+
+> **Part 1**: TODO  
+&ensp;&ensp;`⌛O(n^n)` | `📦O(n)`, where n is the number of valves.  
+> **Part 2**: TODO  
+&ensp;&ensp;`⌛O(n)` | `📦O(1)`, where n is the number of valves.
