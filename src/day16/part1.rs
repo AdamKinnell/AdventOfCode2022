@@ -1,7 +1,6 @@
 use std::{collections::{BinaryHeap}, cmp::Ordering};
 
 use itertools::Itertools;
-use num::Unsigned;
 use regex::Regex;
 
 struct Tunnel {
@@ -65,32 +64,6 @@ fn find_shortest_distance_to_valves<'a>(valves: &'a Vec<Valve>, start_valve_i: u
         .collect_vec()
 }
 
-fn find_paths_to_useful_valves<'a>(valves: &'a Vec<Valve>, start_valve: &'a Valve, path: &mut Vec<&'a str>) -> Vec<Tunnel> {
-    let mut useful_connections = Vec::new();
-    for connection in &start_valve.links {
-        let connecting_valve = &valves[connection.to_valve_index];
-
-        // Avoid infinite loops
-        if path.iter().find(|&&name| name == connecting_valve.name).is_some() {
-            continue;
-        }
-
-        if connecting_valve.flow_rate > 0 {
-            // This direct tunnel is useful
-            useful_connections.push(Tunnel { distance: 1, to_valve_index: connection.to_valve_index })
-        } else {
-            // This connecting valve is useless, so find an indirect tunnel to a useful valve instead
-            path.push(start_valve.name.as_str()); // 
-            let mut indirect_tunnels = find_paths_to_useful_valves(valves, &connecting_valve, path);
-            path.pop();
-            indirect_tunnels.iter_mut().for_each(|tunnel| tunnel.distance += 1);
-            useful_connections.extend(indirect_tunnels);
-        }
-    }
-
-    return useful_connections;
-}
-
 fn parse_input(input: &str) -> Vec<Valve> {
     let regex = r"^Valve (..) has flow rate=(\d+); tunnels? leads? to valves? (.+)$";
     let re = Regex::new(regex).unwrap();
@@ -124,86 +97,8 @@ fn parse_input(input: &str) -> Vec<Valve> {
             })
         .collect_vec();
 
-    // Collapse paths through useless valves
-    let collapsed_valves = indexed_valves.iter()
-        .filter(|valve| valve.flow_rate > 0 || valve.name == "AA")
-        .map(|valve| {
-            return Valve {
-                name: valve.name.to_string(),
-                flow_rate: valve.flow_rate,
-                links: find_paths_to_useful_valves(&indexed_valves, &valve, &mut Vec::new()) };
-        }).collect_vec();
+    return indexed_valves;
 
-    return collapsed_valves;
-
-}
-
-fn print_valves(valves: &Vec<Valve>) {
-    for valve in valves {
-        println!("Valve: {} worth {}", valve.name, valve.flow_rate);
-        for connection in &valve.links {
-            println!("  {} is a distance of {}", valves[connection.to_valve_index].name, connection.distance );
-        }
-    }
-}
-
-fn find_most_steam<'a>(valves: &'a Vec<Valve>, start_valve_i: usize, time_remaining: i32, open_valves: &mut Vec<usize>, valves_visited_since_last_open: &mut Vec<usize>) -> i32 {
-    let start_valve = &valves[start_valve_i];
-    let mut max_additional_steam_released = 0;
-
-    if valves_visited_since_last_open.contains(&start_valve_i) {
-        return 0; // This route is going around in circles without being productive/opening a valve
-    }
-
-    // If we opened this valve
-    if ! open_valves.contains(&start_valve_i) && start_valve.flow_rate > 0 {
-        let time_to_turn_on_valve = 1;
-        let valve_open_time = time_remaining - time_to_turn_on_valve;
-        let steam_value = valve_open_time * start_valve.flow_rate;
-    
-        open_valves.push(start_valve_i);
-        for connection in &start_valve.links {
-            let time_remaining_at_next_valve = time_remaining - time_to_turn_on_valve - connection.distance;
-            if time_remaining_at_next_valve <= 0 {
-                // Walking there isn't going to accomplish anything
-                continue;
-            }
-
-            let additional_steam_released = find_most_steam(
-                &valves,
-                connection.to_valve_index,
-                time_remaining_at_next_valve,
-                open_valves,
-                &mut Vec::with_capacity(valves.len())
-            );
-            max_additional_steam_released = max_additional_steam_released.max(steam_value + additional_steam_released);
-        }
-        open_valves.pop();
-    }
-
-    // If we didn't open this valve
-    valves_visited_since_last_open.push(start_valve_i);
-    if time_remaining > 1 {
-        for connection in &start_valve.links {
-            let time_remaining_at_next_valve = time_remaining - connection.distance;
-            if time_remaining_at_next_valve <= 0 {
-                // Walking there isn't going to accomplish anything
-                continue;
-            }
-    
-            let additional_steam_released = find_most_steam(
-                &valves,
-                connection.to_valve_index,
-                time_remaining_at_next_valve,
-                open_valves,
-                valves_visited_since_last_open
-            );
-            max_additional_steam_released = max_additional_steam_released.max(additional_steam_released);
-        }    
-    }
-    valves_visited_since_last_open.pop();
-
-    return max_additional_steam_released;
 }
 
 fn find_highest_pressure_release(valves: &Vec<Valve>, tunnels_to_valves: &Vec<Vec<Tunnel>>, path_candidates: Vec<usize>, prev_i: usize, time_remaining: i32) -> i32 {
@@ -245,78 +140,7 @@ pub fn solve(input: &str) -> i32 {
 
     let start_i = valves.iter().find_position(|valve| valve.name == "AA").unwrap().0;
     let largest_pressure_released = find_highest_pressure_release(&valves, &tunnels_to_valves, useful_valves, start_i, 30);
-    
-    // Find the highest total steam release by looking at all possible valve visitation routes from the start
-    // let start_valve_i = valves.iter().find_position(|valve| valve.name == "AA").unwrap().0;
-    // let mut largest_pressure_released = 0;
-    // for path in useful_valves.iter().permutations(useful_valves.len()) {
-    //     let mut time_remaining = 30;
-    //     let mut total_pressure_released = 0;
-    //     let mut previous_i = start_valve_i;
-    //     for &next_i in path {
-    //         let tunnel_to_valve = &tunnels_to_valves[previous_i][next_i];
-    //         time_remaining -= tunnel_to_valve.distance + 1; // Include time to turn valve next_i
 
-    //         if time_remaining < 0 {
-    //             break; // We can't open any more valves down this path within the time limit
-    //         }
-
-    //         // Pre-calculate total presure release by end of time period
-    //         total_pressure_released += time_remaining * valves[next_i].flow_rate;
-
-    //         previous_i = next_i;
-    //     }
-
-    //     largest_pressure_released = largest_pressure_released.max(total_pressure_released);
-    // }
-
-    // Find best way to release steam with exhaustive depth-first search
-    // let mut total_steam_released = 0;
-    // let mut remaining_time = 30;
-    // let mut at_value_i = valves.iter().find_position(|valve| valve.name == "AA").unwrap().0;
-    // let mut valves_open = Vec::with_capacity(valves.len());
-    // while remaining_time > 0 {
-    //     let candidates = find_shortest_distance_to_valves(&valves, at_value_i);
-    //     let next_valve = candidates.iter().filter_map(|tunnel| {
-    //         let time_to_turn_on_valve = tunnel.distance + 1;
-    //         if time_to_turn_on_valve > remaining_time {
-    //             // We can't get to this valve and turn it on in time
-    //             return None;
-    //         }
-    //         if valves_open.contains(&tunnel.to_valve_index) {
-    //             // This valve is already open, so no point going back
-    //             return None;
-    //         }
-
-    //         let valve_open_time = remaining_time - time_to_turn_on_valve;
-    //         let steam_value = valve_open_time * valves[tunnel.to_valve_index].flow_rate;
-    //         return Some((tunnel, steam_value));
-    //     }).max_by_key(|(_, value)| *value);
-
-    //     if let Some((tunnel, value)) = next_valve {
-    //         println!("Moved to valve {} which takes {} minutes", valves[tunnel.to_valve_index].name, tunnel.distance);
-    //         println!("  Valve is being opened at minute {}", tunnel.distance + 1);
-    //         total_steam_released += value;
-    //         remaining_time -= tunnel.distance + 1; // Includes time to turn on valve
-    //         at_value_i = tunnel.to_valve_index;
-    //         valves_open.push(at_value_i);
-
-    //     } else {
-    //         // No more valves can be opened before time runs out
-    //         break;
-    //     }
-    // }
-
-    // let start_valve_i = valves.iter().find_position(|valve| valve.name == "AA").unwrap().0;
-    // let most_steam = find_most_steam(
-    //     &valves,
-    //     start_valve_i,
-    //     30,
-    //     &mut Vec::with_capacity(valves.len()),
-    //     &mut Vec::with_capacity(valves.len())
-    // );
-
-    println!("{}", largest_pressure_released);
     return largest_pressure_released;
 }
 
