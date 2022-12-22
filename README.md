@@ -218,3 +218,12 @@ For Part 2, we know that 2 independent actors will take 2 disjoint paths through
 &ensp;&ensp;`⌛O(n!)` | `📦O(n)`, where n is the number of valves.  
 > **Part 2**: Find the path which results in the highest pressure release, assuming 2 actors.  
 &ensp;&ensp;`⌛O(n! · n)` | `📦O(n!)`, where n is the number of valves.
+
+### Day 17
+
+TODO
+
+> **Part 1**: TODO  
+&ensp;&ensp;`⌛O(n)` | `📦O(1)`, where TODO  
+> **Part 2**: TODO  
+&ensp;&ensp;`⌛O(n)` | `📦O(1)`, where TODO
