@@ -232,7 +232,20 @@ To identify the cycle point, we first optimise the data structure holding the ro
 Possible future optimisations include:
   + Representing each row as a byte (instead of a vector of bool) and each rock shape as an array of bytes. We could then use bitshift operations to simulate the gas jets pushing rocks left and right, and binary OR to stamp dropped rocks into existing formations.
 
-> **Part 1**: Find the height if the tower after 2022 rocks.  
+> **Part 1**: Find the height of the tower after 2022 rocks.  
 &ensp;&ensp;`⌛O(n)` | `📦O(n)`, where n is the number of rocks to drop.  
 > **Part 2**: Find the height of the tower after 1 Trillion rocks.  
 &ensp;&ensp;`⌛O(n)` | `📦O(n)`, where n is the number of rocks to drop.
+
+### Day 18
+
+This challenge is abotu finding the surface area of a 3d grid of cubes.
+
+For Part 1 we simply iterate over each cube and check all 6 neighbors. Each missing neighbor adds 1 to the surface area.
+
+For Part 2 we only want to find the exterior area and exclude any air pockets inside. We do this by running a flood-fill algorithm starting from the outside which counts each exposed face it finds. Since it will never find a path to any interior pockets, this will give us the exterior surface area. Of note is that we also have a 1-wide margin in all dimensions around the object to allow the algorithm to correctly count any faces on the edges.
+
+> **Part 1**: Count empty neighbors of all cubes.  
+&ensp;&ensp;`⌛O(n)` | `📦O(m)`, where n is the number of cubes and m is the dimensions of the droplet.  
+> **Part 2**: Flood-fill from outside to find exterior surfaces.  
+&ensp;&ensp;`⌛O(m)` | `📦O(m)`, where m is the dimensions of the droplet.
