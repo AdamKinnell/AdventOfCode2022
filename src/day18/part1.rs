@@ -127,7 +127,7 @@ pub mod tests {
 
     #[test]
     fn verify_solution() {
-        assert_eq!(super::solve(super::super::INPUT), 3496);
+        assert_eq!(super::solve(super::super::INPUT), 4460);
     }
 
     pub fn benchmark(c: &mut Criterion) {
