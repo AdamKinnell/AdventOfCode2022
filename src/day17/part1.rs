@@ -132,20 +132,20 @@ impl<const WIDTH: usize> Chamber<WIDTH> {
         }
     }
 
-    fn print(&self) {
-        for y in (0..self.formations.len()).rev() {
-            print!("{}: |", y);
-            for x in self.formations[y] {
-                if x {
-                    print!("#")
-                } else {
-                    print!(".")
-                }
-            }
-            println!("|")
-        }
-        println!("+-------+")
-    }
+    // fn print(&self) {
+    //     for y in (0..self.formations.len()).rev() {
+    //         print!("{}: |", y);
+    //         for x in self.formations[y] {
+    //             if x {
+    //                 print!("#")
+    //             } else {
+    //                 print!(".")
+    //             }
+    //         }
+    //         println!("|")
+    //     }
+    //     println!("+-------+")
+    // }
 
 }
 

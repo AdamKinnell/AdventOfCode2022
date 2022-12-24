@@ -16,18 +16,17 @@ pub mod tests {
     use criterion::Criterion;
     use std::path::Path;
 
-    use super::{ComparisonResult};
 
     #[test]
     fn verify_check_pairs() {
-        assert_eq!(super::compare_data("[1,1,3,1,1]", "[1,1,5,1,1]"), ComparisonResult::CorrectOrder);
-        assert_eq!(super::compare_data("[[1],[2,3,4]]", "[[1],4]"), ComparisonResult::CorrectOrder);
-        assert_eq!(super::compare_data("[9]", "[[8,7,6]]"), ComparisonResult::IncorrectOrder);
-        assert_eq!(super::compare_data("[[4,4],4,4]", "[[4,4],4,4,4]"), ComparisonResult::CorrectOrder);
-        assert_eq!(super::compare_data("[7,7,7,7]", "[7,7,7]"), ComparisonResult::IncorrectOrder);
-        assert_eq!(super::compare_data("[]", "[3]"), ComparisonResult::CorrectOrder);
-        assert_eq!(super::compare_data("[[[]]]", "[[]]"), ComparisonResult::IncorrectOrder);
-        assert_eq!(super::compare_data("[1,[2,[3,[4,[5,6,7]]]],8,9]", "[1,[2,[3,[4,[5,6,0]]]],8,9]"), ComparisonResult::IncorrectOrder);
+        assert_eq!(super::compare_data("[1,1,3,1,1]", "[1,1,5,1,1]"), super::ComparisonResult::CorrectOrder);
+        assert_eq!(super::compare_data("[[1],[2,3,4]]", "[[1],4]"), super::ComparisonResult::CorrectOrder);
+        assert_eq!(super::compare_data("[9]", "[[8,7,6]]"), super::ComparisonResult::IncorrectOrder);
+        assert_eq!(super::compare_data("[[4,4],4,4]", "[[4,4],4,4,4]"), super::ComparisonResult::CorrectOrder);
+        assert_eq!(super::compare_data("[7,7,7,7]", "[7,7,7]"), super::ComparisonResult::IncorrectOrder);
+        assert_eq!(super::compare_data("[]", "[3]"), super::ComparisonResult::CorrectOrder);
+        assert_eq!(super::compare_data("[[[]]]", "[[]]"), super::ComparisonResult::IncorrectOrder);
+        assert_eq!(super::compare_data("[1,[2,[3,[4,[5,6,7]]]],8,9]", "[1,[2,[3,[4,[5,6,0]]]],8,9]"), super::ComparisonResult::IncorrectOrder);
     }
 
     #[test]

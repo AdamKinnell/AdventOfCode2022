@@ -1,8 +1,5 @@
-use std::collections::{VecDeque, HashSet, HashMap};
-use std::convert::identity;
-
+use std::collections::{VecDeque, HashMap};
 use grid::Grid;
-use interval::ops::Width;
 use itertools::Itertools;
 
 #[derive(Debug)]
@@ -177,20 +174,20 @@ impl<const WIDTH: usize> Chamber<WIDTH> {
         }
     }
 
-    fn print(&self) {
-        for y in (0..self.formations.len()).rev() {
-            print!("{}: |", y);
-            for x in self.formations[y] {
-                if x {
-                    print!("#")
-                } else {
-                    print!(".")
-                }
-            }
-            println!("|")
-        }
-        println!("+-------+")
-    }
+    // fn print(&self) {
+    //     for y in (0..self.formations.len()).rev() {
+    //         print!("{}: |", y);
+    //         for x in self.formations[y] {
+    //             if x {
+    //                 print!("#")
+    //             } else {
+    //                 print!(".")
+    //             }
+    //         }
+    //         println!("|")
+    //     }
+    //     println!("+-------+")
+    // }
 
 }
 
@@ -220,7 +217,6 @@ fn parse_gas_jets(input: &str) -> Vec<Direction> {
 
 pub fn solve(input: &str, num_rocks: usize) -> usize {
     let gas_jets = parse_gas_jets(input);
-    let gas_jet_period = gas_jets.len();
     let mut infinite_gas_jets = gas_jets.into_iter().cycle();
     let mut chamber: Chamber<7> = Chamber::new();
 
