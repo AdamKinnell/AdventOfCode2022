@@ -221,9 +221,18 @@ For Part 2, we know that 2 independent actors will take 2 disjoint paths through
 
 ### Day 17
 
-TODO
+Simulating this problem is like Tetris, except we never make a complete row (I checked).
 
-> **Part 1**: TODO  
-&ensp;&ensp;`⌛O(n)` | `📦O(1)`, where TODO  
-> **Part 2**: TODO  
-&ensp;&ensp;`⌛O(n)` | `📦O(1)`, where TODO
+My solution for Part 1 is a simple simulation with minimal optimisations.
+
+In Part 2 we can't feasibly simulate or store 1 trillion rocks so we have to make some optimisations. The pattern of rock formations eventually repeats after the gas movements provided as an input start cycling. Once we have identified the cycle parameters, we can extrapolate the tower height at any point without simulating it.
+
+To identify the cycle point, we first optimise the data structure holding the rocks to drop old rows that won't be useful again (+ a margin). Then we hash this after each rock and find the point where it looks the same.
+
+Possible future optimisations include:
+  + Representing each row as a byte (instead of a vector of bool) and each rock shape as an array of bytes. We could then use bitshift operations to simulate the gas jets pushing rocks left and right, and binary OR to stamp dropped rocks into existing formations.
+
+> **Part 1**: Find the height if the tower after 2022 rocks.  
+&ensp;&ensp;`⌛O(n)` | `📦O(n)`, where n is the number of rocks to drop.  
+> **Part 2**: Find the height of the tower after 1 Trillion rocks.  
+&ensp;&ensp;`⌛O(n)` | `📦O(n)`, where n is the number of rocks to drop.

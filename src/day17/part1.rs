@@ -131,6 +131,22 @@ impl<const WIDTH: usize> Chamber<WIDTH> {
 
         }
     }
+
+    fn print(&self) {
+        for y in (0..self.formations.len()).rev() {
+            print!("{}: |", y);
+            for x in self.formations[y] {
+                if x {
+                    print!("#")
+                } else {
+                    print!(".")
+                }
+            }
+            println!("|")
+        }
+        println!("+-------+")
+    }
+
 }
 
 fn get_infinite_rocks() -> impl Iterator<Item=Rock> {
@@ -164,6 +180,7 @@ pub fn solve(input: &str) -> i32 {
         chamber.simulate_rock(&rock, &mut gas_jets);
     }
 
+    //chamber.print();
     return chamber.highest_free_row;
 }
 
