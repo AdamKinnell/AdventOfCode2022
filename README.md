@@ -249,3 +249,23 @@ For Part 2 we only want to find the exterior area and exclude any air pockets in
 &ensp;&ensp;`⌛O(n)` | `📦O(m)`, where n is the number of cubes and m is the dimensions of the droplet.  
 > **Part 2**: Flood-fill from outside to find exterior surfaces.  
 &ensp;&ensp;`⌛O(m)` | `📦O(m)`, where m is the dimensions of the droplet.
+
+...
+
+### Day 25
+
+A conversion betwen numerical systems. Standard Base-10 and some weird Base-5 *thing*.
+
+The place values of each digit are as follows.
+```
+2 = 2
+1 = 1
+0 = 0
+- = -1
+= = -2
+```
+
+> **Part 1**: Convert from SNAFU to decimal, sum all numbers, and convert the sum from decimal to SNAFU.  
+&ensp;&ensp;`⌛O(n)` | `📦O(1)`, where TODO  
+> ~~**Part 2**~~: TODO: Requires all other puzzles to be solved.  
+~~&ensp;&ensp;`⌛O(n)` | `📦O(1)`, where TODO~~

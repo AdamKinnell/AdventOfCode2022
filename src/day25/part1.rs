@@ -1,10 +1,49 @@
+use itertools::Itertools;
 
-fn snafu_to_decimal(n: &str) -> i32 {
+fn snafu_to_decimal(n: &str) -> i64 {
+    let mut decimal = 0;
 
+    // Convert to SNAFU number starting from left-most place
+    let chars = n.chars().collect_vec();
+    for i in 0..n.len() {
+        let this_digit = chars[i];
+        decimal *= 5;
+        match this_digit {
+            '2' => { decimal += 2; },
+            '1' => { decimal += 1; },
+            '0' => { decimal += 0; },
+            '-' => { decimal -= 1; },
+            '=' => { decimal -= 2; }
+            _ => unreachable!()
+        }
+    }
+
+    return decimal;
 }
 
-fn decimal_to_snafu(n: i32) -> String {
-    return Strinf::
+fn decimal_to_snafu(mut n: i64) -> String {
+    let mut snafu = String::new();
+
+    // Convert to SNAFU number starting from right-most place
+    while n > 0 {
+        let mut borrow = false;
+        let this_digit = n % 5;
+        match this_digit {
+            0 => { snafu.push_str("0")},
+            1 => { snafu.push_str("1")},
+            2 => { snafu.push_str("2")},
+            3 => { snafu.push_str("="); borrow = true}, // We have to borrow 1 from the next place
+            4 => { snafu.push_str("-"); borrow = true}, // We have to borrow 2 from the next place
+            _ => unreachable!()
+        }
+        n /= 5; // Go to next 5's place in the number
+        if borrow {
+            n += 1; // Give us an extra digit in the next place to borrow from
+        }
+    }
+
+    // We built the SNAFU in reverse
+    return snafu.chars().rev().collect::<String>();
 }
 
 pub fn solve(input: &str) -> String {
@@ -65,7 +104,7 @@ pub mod tests {
 
     #[test]
     fn verify_solution() {
-        assert_eq!(super::solve(super::super::INPUT), "A");
+        assert_eq!(super::solve(super::super::INPUT), "2-=0-=-2=111=220=100");
     }
 
     pub fn benchmark(c: &mut Criterion) {
