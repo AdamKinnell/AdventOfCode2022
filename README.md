@@ -239,16 +239,36 @@ Possible future optimisations include:
 
 ### Day 18
 
-This challenge is abotu finding the surface area of a 3d grid of cubes.
+This challenge is about finding the surface area of a 3d grid of cubes.
 
 For Part 1 we simply iterate over each cube and check all 6 neighbors. Each missing neighbor adds 1 to the surface area.
 
 For Part 2 we only want to find the exterior area and exclude any air pockets inside. We do this by running a flood-fill algorithm starting from the outside which counts each exposed face it finds. Since it will never find a path to any interior pockets, this will give us the exterior surface area. Of note is that we also have a 1-wide margin in all dimensions around the object to allow the algorithm to correctly count any faces on the edges.
 
+Possible improvements include:
+  + Use a flood-fill algorithm in Part 1 starting within the connected mass of cubes.
+  + Improving the flood-fill algorithm in Part 2 to only traverse across the surface of the volume, rather than also through the empty space.
+
 > **Part 1**: Count empty neighbors of all cubes.  
 &ensp;&ensp;`⌛O(n)` | `📦O(m)`, where n is the number of cubes and m is the dimensions of the droplet.  
 > **Part 2**: Flood-fill from outside to find exterior surfaces.  
 &ensp;&ensp;`⌛O(m)` | `📦O(m)`, where m is the dimensions of the droplet.
+
+### Day 19
+
+We have to find the maximum number of geodes we can mine with each blueprint over the course of 24 (Part 1) or 32 (Part 2) minutes. The possible decisions that we can make are to advance time (to accumulate more resources), or to build a bot (if we have resources available). This continues until time runs out.
+
+Since we should always be looking to expand production if possible to maximise the total output, each decisions are compressed into a choice of what bot to build next and abstracting away the concept of time. e.g. we can wait x minutes until we have enough resources to build A bot, or y minutes to build B bot. Time is fast-forwarded to the point where the new bot is build.
+
+My original solution for Part 2 was waaaay too slow, but reading through the Reddit thread lead me to the optimisation I needed: "Don't build a bot if we're already generating enough resources from that type to build any other bot in 1 minute". It's still quite slow, but now becomes computationally feasible.
+
+Possible improvements include:
+  + Improving heuristics to cull build orders that are worse that what we've seen so far.
+
+> **Part 1**: Find build order to maximize mined geodes in 24 minutes.  
+&ensp;&ensp;`⌛O(n · 2^m)` | `📦O(m)`, where n is the number of blueprints and m is the number of minutes.  
+> **Part 2**: Find build order to maximize mined geodes in 32 minutes.    
+&ensp;&ensp;`⌛O(n · 2^m)` | `📦O(m)`, where n is the number of blueprints and m is the number of minutes.
 
 ...
 
@@ -268,4 +288,4 @@ The place values of each digit are as follows.
 > **Part 1**: Convert from SNAFU to decimal, sum all numbers, and convert the sum from decimal to SNAFU.  
 &ensp;&ensp;`⌛O(n)` | `📦O(1)`, where TODO  
 > ~~**Part 2**~~: TODO: Requires all other puzzles to be solved.  
-~~&ensp;&ensp;`⌛O(n)` | `📦O(1)`, where TODO~~
+~~&ensp;&ensp;`⌛O(n)` | `📦O(1)`, where TODO  
