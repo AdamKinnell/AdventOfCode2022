@@ -14,15 +14,15 @@ fn find_highest_pressure_release(tunnels_to_valves: &Vec<Vec<Tunnel>>, next_cand
             continue; // There isn't enough time for the valve to relieve any pressure once opened
         }
 
-        let next_path_candidates = next_candidates.iter().filter(|candidate_i| **candidate_i != next_i).map(|x| *x).collect_vec();
+        let next_path_candidates = next_candidates.iter().filter(|candidate_i| **candidate_i != next_i).copied().collect_vec();
         let pressure_release_from_this_valve = time_remaining_after_next_valve * tunnel.to_valve_flow_rate;
 
-        let pressure_released_from_remaining_path = find_highest_pressure_release( &tunnels_to_valves, next_path_candidates, next_i, time_remaining_after_next_valve);
+        let pressure_released_from_remaining_path = find_highest_pressure_release( tunnels_to_valves, next_path_candidates, next_i, time_remaining_after_next_valve);
         let pressure_released = pressure_release_from_this_valve + pressure_released_from_remaining_path;
         highest_pressure_released = highest_pressure_released.max(pressure_released)
     }
 
-    return highest_pressure_released;
+    highest_pressure_released
 }
 
 pub fn solve(input: &str) -> i32 {
@@ -35,13 +35,13 @@ pub fn solve(input: &str) -> i32 {
     let useful_valves = valves
         .iter()
         .enumerate()
-        .filter_map(|(i, valve)| if &valve.name == "AA" || valve.flow_rate == 0 { return None } else {return Some(i)})
+        .filter_map(|(i, valve)| if &valve.name == "AA" || valve.flow_rate == 0 { None } else {Some(i)})
         .collect_vec();
 
     let start_i = valves.iter().find_position(|valve| valve.name == "AA").unwrap().0;
-    let largest_pressure_released = find_highest_pressure_release( &tunnels_to_valves, useful_valves, start_i, 30);
+    
 
-    return largest_pressure_released;
+    find_highest_pressure_release( &tunnels_to_valves, useful_valves, start_i, 30)
 }
 
 pub mod tests {

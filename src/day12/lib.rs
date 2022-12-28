@@ -12,7 +12,7 @@ pub enum MapSquare {
 impl MapSquare {
     pub fn from_char(char: char) -> Option<MapSquare> {
         match char {
-            'a'..='z' => Some(MapSquare::Terrain(char as u8 - 'a' as u8)),
+            'a'..='z' => Some(MapSquare::Terrain(char as u8 - b'a')),
             'S' => Some(MapSquare::Start),
             'E' => Some(MapSquare::Goal),
               _ => None
@@ -45,16 +45,16 @@ impl Map {
             .chars()
             .filter_map(MapSquare::from_char)
             .collect_vec();
-        return Map {
+        Map {
             grid: Grid::from_vec(squares, width)
-        };
+        }
     }
 
     pub fn get_square_at(&self, position: &Position2D) -> Option<&MapSquare> {
         if position.x < 0 || position.y < 0 {
             return None;
         }
-        return self.grid.get(position.y as usize, position.x as usize);
+        self.grid.get(position.y as usize, position.x as usize)
     }
 
     pub fn find_first(&self, square_type: &MapSquare) -> Position2D {
@@ -81,14 +81,14 @@ pub fn find_traversable_neighbors<'a>(map: &'a Map, position: Position2D, can_mo
     ];
 
     return adjacent_positions.iter().filter_map(|neighbor_position| {
-        if let Some(square) = map.get_square_at(&neighbor_position) {
-            if can_move_to(&this_square, &square) {
-                return Some((*neighbor_position, square));
+        if let Some(square) = map.get_square_at(neighbor_position) {
+            if can_move_to(this_square, square) {
+                Some((*neighbor_position, square))
             } else {
-                return None;
+                None
             }
         } else {
-            return None;
+            None
         }
     }).collect_vec();
 }
@@ -118,7 +118,7 @@ pub fn dijkstra_find_shortest_path_length(map: &Map, start: Position2D, goal: &M
             *this_distance = prev_distance + 1;
     
             // Queue all neighbors to be visited
-            let neighbors = find_traversable_neighbors(&map, position, can_move_to);
+            let neighbors = find_traversable_neighbors(map, position, can_move_to);
             for (neighbor_position, neighbor_square) in neighbors {
                 let (_, neighbor_previous) = algorithm_state.get_mut(neighbor_position.y as usize, neighbor_position.x as usize).unwrap();
                 *neighbor_previous = Some(position);
@@ -132,5 +132,5 @@ pub fn dijkstra_find_shortest_path_length(map: &Map, start: Position2D, goal: &M
         }
 
     //
-    return None;
+    None
 }

@@ -7,9 +7,9 @@ fn value_round(round: &str) -> i32 {
     // Z = We must win
     // "[Their Hand] [Desired Outcome]"
     match round {
-        "A X" => 0 + 3, // Lose with Scissors
-        "B X" => 0 + 1, // Lose with Rock
-        "C X" => 0 + 2, // Lose with Paper
+        "A X" => 3, // Lose with Scissors
+        "B X" => 1, // Lose with Rock
+        "C X" => 2, // Lose with Paper
         "A Y" => 3 + 1, // Tie with Rock
         "B Y" => 3 + 2, // Tie with Paper
         "C Y" => 3 + 3, // Tie with Scissors
@@ -23,7 +23,7 @@ fn value_round(round: &str) -> i32 {
 pub fn solve(input: &str) -> i32 {
     input
         .lines()
-        .map(|x| value_round(x))
+        .map(value_round)
         .sum()
 }
 

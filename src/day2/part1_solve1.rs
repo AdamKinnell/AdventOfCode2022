@@ -63,7 +63,7 @@ fn value_round(round: &str) -> i32 {
     let me = Hand::from_string(round.next().unwrap());
 
     let result = me.play_against(&them);
-    return me.get_score_value() + result.get_score_value();
+    me.get_score_value() + result.get_score_value()
 }
 
 pub fn solve(input: &str) -> i32 {

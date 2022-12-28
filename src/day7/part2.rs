@@ -3,7 +3,7 @@ use super::lib::Command;
 pub fn solve(input: &str) -> usize {
     let commands = input.split("$ ")
         .filter(|s| ! s.is_empty())
-        .map(|command_line| Command::parse(command_line))
+        .map(Command::parse)
         .chain(std::iter::repeat(Command::ReturnToParent)); // Make sure we go back up towards the root directory
 
     let mut dir_sizes: Vec<usize> = Vec::new();
@@ -22,7 +22,7 @@ pub fn solve(input: &str) -> usize {
         .min()
         .unwrap();
 
-    return size_of_dir_to_delete;
+    size_of_dir_to_delete
 }
 
 pub mod tests {

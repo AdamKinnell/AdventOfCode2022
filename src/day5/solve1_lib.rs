@@ -16,7 +16,7 @@ pub fn parse_crate_positions(input: &str) -> Vec::<Vec<char>> {
         }
     });
 
-    return crates;
+    crates
 }
 
 pub fn print_crates(crates: &Vec<Vec<char>>) {

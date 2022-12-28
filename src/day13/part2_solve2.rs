@@ -9,18 +9,18 @@ pub fn solve(input: &str) -> usize {
 
     // Find index of each divider packet
     let two_index = packets.iter().filter(|packet| {
-        return compare_data(packet, "[[2]]") == ComparisonResult::CorrectOrder
+        compare_data(packet, "[[2]]") == ComparisonResult::CorrectOrder
     }).count() + 1;
 
     let six_index = packets.iter().filter(|packet| {
-        return compare_data(packet, "[[6]]") == ComparisonResult::CorrectOrder
+        compare_data(packet, "[[6]]") == ComparisonResult::CorrectOrder
     }).count() + 1;
 
     // Account for the two divider packets not actually being in the input
     if two_index < six_index {
-        return two_index * (six_index + 1);
+        two_index * (six_index + 1)
     } else {
-        return (two_index + 1) * six_index;
+        (two_index + 1) * six_index
     }
 }
 

@@ -10,15 +10,15 @@ pub fn parse_trees(input: &str) -> Grid<Tree> {
     let trees = input
         .bytes()
         .filter_map(|x| {
-            if x >= '0' as u8 && x <= '9' as u8 {
-                let tree = Tree {height: x - '0' as u8};
-                return Some(tree);
+            if (b'0'..=b'9').contains(&x) {
+                let tree = Tree {height: x - b'0'};
+                Some(tree)
             } else {
-                return None;
+                None
             }
     }).collect_vec();
 
-    return Grid::from_vec(trees, width);
+    Grid::from_vec(trees, width)
 }
 
 fn calc_scenic_score(trees: &Grid<Tree>, tree_x: usize, tree_y: usize) -> i32 {
@@ -60,7 +60,7 @@ fn calc_scenic_score(trees: &Grid<Tree>, tree_x: usize, tree_y: usize) -> i32 {
         }
     }
     
-    return view_right * view_down * view_left * view_up;
+    view_right * view_down * view_left * view_up
 }
 
 pub fn solve(input: &str) -> i32 {
@@ -68,8 +68,8 @@ pub fn solve(input: &str) -> i32 {
 
     let mut highest = 0;
     for x in 0..trees.cols() {
-        for y in 0..trees.rows().clone() {
-            let score = calc_scenic_score(&trees, x, y);
+        for y in 0..trees.rows() {
+            let score = calc_scenic_score(trees, x, y);
             if score > highest {
                 highest = score;
             }
@@ -78,7 +78,7 @@ pub fn solve(input: &str) -> i32 {
         //println!("")
     }
 
-    return highest;
+    highest
 }
 
 pub mod tests {

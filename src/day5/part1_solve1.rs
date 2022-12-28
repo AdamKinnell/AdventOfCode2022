@@ -12,7 +12,7 @@ pub fn solve(input: &str) -> String {
             //print_crates(&crates);
         });
 
-    return solve1_lib::find_top_of_stacks(&crates);
+    solve1_lib::find_top_of_stacks(crates)
 }
 
 pub mod tests {

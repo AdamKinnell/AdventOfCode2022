@@ -4,14 +4,14 @@ use super::lib::parse_blueprints;
 pub fn solve(input: &str) -> i32 {
     let blueprints = parse_blueprints(input);
 
-    return blueprints
+    blueprints
         .enumerate()
         .map(|(i, blueprint)| {
             let quality = calculate_blueprint_quality(&blueprint, SimulationState::new(), 25);
             println!("Blueprint {} resulted in {} geodes", i + 1, quality);
-            return (i as i32+1) * quality as i32;
+            (i as i32+1) * quality as i32
         })
-        .sum();
+        .sum()
 }
 
 pub mod tests {

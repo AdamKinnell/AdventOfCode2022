@@ -7,17 +7,17 @@ pub fn solve(input: &str) -> i32 {
 
     let somm = windows.find(|(_, window)| {
         let mut found_cache = [false; 26];
-        for c in window.into_iter() {
+        for c in window.iter() {
             let i = *c as usize - 'a' as usize;
             if found_cache[i] {
                 return false; // Duplicate char found in this window
             }
             found_cache[i] = true;
         }
-        return true;
+        true
     }).unwrap();
 
-    return (somm.0 as i32) + 14;
+    (somm.0 as i32) + 14
 }
 
 pub mod tests {

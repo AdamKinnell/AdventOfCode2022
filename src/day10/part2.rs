@@ -26,7 +26,7 @@ pub fn solve(input: &str) -> String {
     }
 
     //println!("{}", output);
-    return output;
+    output
 }
 
 pub mod tests {

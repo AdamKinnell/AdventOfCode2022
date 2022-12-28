@@ -9,7 +9,7 @@ struct Path {
 }
 
 fn enumerate_all_paths(tunnels_to_valves: &Vec<Vec<Tunnel>>, next_candidates: Vec<usize>, current_path: &mut Vec<usize>, prev_i: usize, acc_pressure_release: i32, time_remaining: i32) -> Vec<Path> {
-    if time_remaining < 2 || next_candidates.len() == 0 {
+    if time_remaining < 2 || next_candidates.is_empty() {
         // !! Early exit !!
         // This path has become terminal - there are no valid candidates to explore
         return [ Path { visits: current_path.clone(), acc_pressure_release } ].to_vec();
@@ -26,9 +26,9 @@ fn enumerate_all_paths(tunnels_to_valves: &Vec<Vec<Tunnel>>, next_candidates: Ve
         let pressure_release_from_this_valve = time_remaining_after_next_valve * tunnel.to_valve_flow_rate;
         let acc_pressure_release_at_next = pressure_release_from_this_valve + acc_pressure_release;
         current_path.push(next_i);
-        let next_path_candidates = next_candidates.iter().filter(|candidate_i| **candidate_i != next_i).map(|x| *x).collect_vec();
+        let next_path_candidates = next_candidates.iter().filter(|candidate_i| **candidate_i != next_i).copied().collect_vec();
         let mut paths = enumerate_all_paths(
-            &tunnels_to_valves,
+            tunnels_to_valves,
             next_path_candidates,
             current_path,
             next_i,
@@ -40,7 +40,7 @@ fn enumerate_all_paths(tunnels_to_valves: &Vec<Vec<Tunnel>>, next_candidates: Ve
 
     all_subpaths.push( Path { visits: current_path.clone(), acc_pressure_release } );
 
-    return all_subpaths;
+    all_subpaths
 
 }
 
@@ -54,7 +54,7 @@ pub fn solve(input: &str) -> i32 {
     let useful_valves = valves
         .iter()
         .enumerate()
-        .filter_map(|(i, valve)| if &valve.name == "AA" || valve.flow_rate == 0 { return None } else {return Some(i)})
+        .filter_map(|(i, valve)| if &valve.name == "AA" || valve.flow_rate == 0 { None } else {Some(i)})
         .collect_vec();
 
     let start_i = valves.iter().find_position(|valve| valve.name == "AA").unwrap().0;
@@ -90,7 +90,7 @@ pub fn solve(input: &str) -> i32 {
 
             // Ensure the paths don't both touch the same valves
             for a_valve in &path_a.visits {
-                if path_b.visits.contains(&a_valve) {
+                if path_b.visits.contains(a_valve) {
                     // There is an overlap and these paths aren't a valid pair
                     continue 'b;
                 }
@@ -102,7 +102,7 @@ pub fn solve(input: &str) -> i32 {
         }
     }
 
-    return highest_score;
+    highest_score
 }
 
 pub mod tests {

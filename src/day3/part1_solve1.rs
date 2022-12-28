@@ -18,8 +18,8 @@ fn find_item_value(item: char) -> i32 {
 pub fn solve(input: &str) -> i32 {
     input
         .lines()
-        .map(|rucksack| find_duplicate_item(rucksack) )
-        .map(|item| find_item_value(item))
+        .map(find_duplicate_item )
+        .map(find_item_value)
         .sum()
 }
 

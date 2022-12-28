@@ -5,7 +5,7 @@ pub fn solve(input: &str) -> i32 {
     let can_move_to = |to: &MapSquare, from: &MapSquare| to.get_height() <= from.get_height() + 1;
     let start = map.find_first(&MapSquare::Goal);
     let goal = MapSquare::Terrain(0);
-    return dijkstra_find_shortest_path_length(&map, start, &goal, &can_move_to).unwrap();
+    dijkstra_find_shortest_path_length(&map, start, &goal, &can_move_to).unwrap()
 }
 
 pub mod tests {

@@ -10,7 +10,7 @@ pub fn solve(input: &str) -> i32 {
         //println!("{}: {}", cycle, register);
     }
 
-    return total;
+    total
 }
 
 pub mod tests {

@@ -11,7 +11,7 @@ fn is_fully_contained(line: &&str) -> bool {
     let a_in_b = a_min >= b_min && a_max <= b_max;
     let b_in_a = b_min >= a_min && b_max <= a_max;
 
-    return a_in_b || b_in_a;
+    a_in_b || b_in_a
 }
 
 pub fn solve(input: &str) -> i32 {

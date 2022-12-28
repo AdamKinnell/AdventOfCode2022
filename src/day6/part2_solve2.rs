@@ -33,11 +33,11 @@ fn find_first_unique_window(input: &str, window_size: i32) -> Option<usize> {
         }
     }
 
-    return None;
+    None
 }
 
 pub fn solve(input: &str) -> Option<usize> {
-    return find_first_unique_window(input, 14).and_then(|x| Some(x + 1));
+    find_first_unique_window(input, 14).map(|x| x + 1)
 }
 
 pub mod tests {

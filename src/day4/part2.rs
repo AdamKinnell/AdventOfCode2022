@@ -14,7 +14,7 @@ fn is_any_overlap(line: &&str) -> bool {
     if b_max < a_min {return false;}
     if b_min > a_max {return false;}
 
-    return true;
+    true
 }
 
 pub fn solve(input: &str) -> i32 {

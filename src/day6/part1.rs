@@ -8,12 +8,12 @@ pub fn solve(input: &str) -> i32 {
         .tuple_windows()
         .enumerate()
         .find(|(_, (a,b,c,d))| {
-            return a != b && a != c && a != d &&
+            a != b && a != c && a != d &&
                              b != c && b != d &&
-                                       c != d;
+                                       c != d
         }).unwrap();
 
-    return (sopm.0 as i32) + 4;
+    (sopm.0 as i32) + 4
 }
 
 pub mod tests {

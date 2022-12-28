@@ -4,15 +4,15 @@ use super::lib::parse_blueprints;
 pub fn solve(input: &str) -> i32 {
     let blueprints = parse_blueprints(input);
 
-    return blueprints
+    blueprints
         .take(3)
         .enumerate()
         .map(|(i, blueprint)| {
             let quality = calculate_blueprint_quality(&blueprint, SimulationState::new(), 33);
             println!("Blueprint {} resulted in {} geodes", i + 1, quality);
-            return quality;
+            quality
         })
-        .product::<u16>() as i32;
+        .product::<u16>() as i32
 }
 
 pub mod tests {

@@ -11,15 +11,15 @@ pub fn parse_trees(input: &str) -> Grid<Tree> {
     let trees = input
         .bytes()
         .filter_map(|x| {
-            if x >= '0' as u8 && x <= '9' as u8 {
-                let tree = Tree {height: x - '0' as u8, is_visible: false};
-                return Some(tree);
+            if (b'0'..=b'9').contains(&x) {
+                let tree = Tree {height: x - b'0', is_visible: false};
+                Some(tree)
             } else {
-                return None;
+                None
             }
     }).collect_vec();
 
-    return Grid::from_vec(trees, width);
+    Grid::from_vec(trees, width)
 }
 
 pub fn solve(input: &str) -> usize {
@@ -118,7 +118,7 @@ pub fn solve(input: &str) -> usize {
 
     // print_trees(&trees);
 
-    return visible_trees;
+    visible_trees
 }
 
 pub mod tests {

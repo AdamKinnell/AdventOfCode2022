@@ -28,7 +28,7 @@ pub fn solve2(input: &str) -> i32 {
             }
         }).map(|x| x.unwrap());
 
-    return elves.sorted().rev().take(3).sum();
+    elves.sorted().rev().take(3).sum()
 }
 
 pub mod tests {

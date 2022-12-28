@@ -17,26 +17,26 @@ struct Grid3D<T> {
 impl<T: Copy> Grid3D<T> {
     fn new(x_size: i32, y_size: i32, z_size: i32, default: T) -> Grid3D<T> {
         let total_size = x_size * y_size * z_size;
-        return Grid3D { grid: vec![default; total_size as usize], x_size, y_size, z_size };
+        Grid3D { grid: vec![default; total_size as usize], x_size, y_size, z_size }
     }
 
     fn index_3d(&self, pos: Position3D) -> usize {
-        return (pos.z * (self.x_size * self.y_size) +
+        (pos.z * (self.x_size * self.y_size) +
                pos.y * self.x_size +
-               pos.x) as usize;
+               pos.x) as usize
     }
 
     fn is_in_bounds(&self, pos: &Position3D) -> bool {
-        return pos.x >= 0 && pos.x < self.x_size &&
+        pos.x >= 0 && pos.x < self.x_size &&
                pos.y >= 0 && pos.y < self.y_size &&
                pos.z >= 0 && pos.z < self.z_size
     }
 
     fn get(&self, pos: Position3D) -> Option<T> {
         if self.is_in_bounds(&pos) {
-            return Some(self.grid[self.index_3d(pos)]);
+            Some(self.grid[self.index_3d(pos)])
         } else {
-            return None;
+            None
         }
     }
 
@@ -51,11 +51,11 @@ fn parse_positions(input: &str) -> Vec<Position3D> {
     .lines()
     .map(|coord| {
         let mut components = coord.split(',');
-        return Position3D {
+        Position3D {
             x: components.next().unwrap().parse().unwrap(),
             y: components.next().unwrap().parse().unwrap(),
             z: components.next().unwrap().parse().unwrap()
-        };
+        }
     })
     .collect_vec();
 }
@@ -93,22 +93,22 @@ pub fn solve(input: &str) -> i32 {
             for x in 0..grid.x_size {
 
                 // Make sure there is a cube here
-                if grid.get(Position3D {x,y,z}).unwrap() == false {
+                if !grid.get(Position3D {x,y,z}).unwrap() {
                     continue;
                 }
 
                 // Check neighbors on all 6 sides of the cube
-                if grid.get(Position3D {x: x + 1, y, z }).unwrap_or(false) == false {surface_area += 1}
-                if grid.get(Position3D {x: x - 1, y, z }).unwrap_or(false) == false {surface_area += 1}
-                if grid.get(Position3D {x, y: y + 1, z }).unwrap_or(false) == false {surface_area += 1}
-                if grid.get(Position3D {x, y: y - 1, z }).unwrap_or(false) == false {surface_area += 1}
-                if grid.get(Position3D {x, y, z: z + 1 }).unwrap_or(false) == false {surface_area += 1}
-                if grid.get(Position3D {x, y, z: z - 1 }).unwrap_or(false) == false {surface_area += 1}
+                if !grid.get(Position3D {x: x + 1, y, z }).unwrap_or(false) {surface_area += 1}
+                if !grid.get(Position3D {x: x - 1, y, z }).unwrap_or(false) {surface_area += 1}
+                if !grid.get(Position3D {x, y: y + 1, z }).unwrap_or(false) {surface_area += 1}
+                if !grid.get(Position3D {x, y: y - 1, z }).unwrap_or(false) {surface_area += 1}
+                if !grid.get(Position3D {x, y, z: z + 1 }).unwrap_or(false) {surface_area += 1}
+                if !grid.get(Position3D {x, y, z: z - 1 }).unwrap_or(false) {surface_area += 1}
             }
         }
     }
 
-    return surface_area;
+    surface_area
 }
 
 pub mod tests {

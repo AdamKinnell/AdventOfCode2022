@@ -9,11 +9,11 @@ struct SandSimulator<'a> {
 
 impl SandSimulator<'_> {
     fn new(cave: &mut Cave, floor: usize) -> SandSimulator {
-        return SandSimulator {
+        SandSimulator {
             cache: Vec::new(),
             sands_settled: 0,
             floor,
-            cave: cave,
+            cave,
         }
     }
 
@@ -69,7 +69,7 @@ pub fn solve(input: &str) -> i32 {
 
     while simulator.drop_sand(start).is_some() {}
 
-    return simulator.sands_settled;
+    simulator.sands_settled
 }
 
 pub mod tests {

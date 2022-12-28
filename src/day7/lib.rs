@@ -12,7 +12,7 @@ pub enum Command {
 impl Command {
     pub fn parse(command_with_output: &str) -> Command {
         let (command, response) = command_with_output.split_once("\r\n").unwrap();
-        let exec = command.split(" ").collect_vec();
+        let exec = command.split(' ').collect_vec();
 
         if exec[0] == "cd" {
             if exec[1] == "/" {
@@ -24,11 +24,11 @@ impl Command {
             }
         } else if exec[0] == "ls" {
             let file_sizes: usize = response.lines().filter_map(|entry| {
-                let (size, _) = entry.split_once(" ").unwrap();
+                let (size, _) = entry.split_once(' ').unwrap();
                 if size == "dir" {
-                    return None;
+                    None
                 } else {
-                    return Some(size.parse::<usize>().unwrap())
+                    Some(size.parse::<usize>().unwrap())
                 }
             }).sum();
             return Command::ListFileSizes(file_sizes);
@@ -51,7 +51,7 @@ pub fn traverse_directory(commands: impl Iterator<Item = Command>, mut directory
                 let dir_size = directory_sizes.pop().unwrap();
                 directory_callback(dir_size);
 
-                if directory_sizes.len() > 0 {
+                if !directory_sizes.is_empty() {
                     // Update parent with size of child directory
                     *directory_sizes.last_mut().unwrap() += dir_size;
                 } else {
@@ -70,7 +70,7 @@ pub fn traverse_directory(commands: impl Iterator<Item = Command>, mut directory
         }
     }
 
-    if directory_sizes.len() != 0 {
+    if !directory_sizes.is_empty() {
         panic!("The commands didn't take us back to the root!")
     }
 }

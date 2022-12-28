@@ -35,8 +35,8 @@ pub fn solve(input: &str) -> i32 {
         .lines()
         .chunks(3)
         .into_iter()
-        .map(|group| find_badge_item(group))
-        .map(|item| find_item_value(item))
+        .map(find_badge_item)
+        .map(find_item_value)
         .sum()
 }
 

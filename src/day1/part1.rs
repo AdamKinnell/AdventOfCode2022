@@ -14,7 +14,7 @@ pub fn solve(input: &str) -> i32 {
 
         largest = std::cmp::max(largest, elf);
     }
-    return largest;
+    largest
 }
 
 

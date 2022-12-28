@@ -81,7 +81,7 @@ pub fn parse_input(input: &str) -> Vec<Valve> {
             let name = captures[1].to_owned();
             let flow_rate: i32 = captures[2].parse().unwrap();
             let connections = captures[3].split(", ").map(str::to_string).collect_vec();
-            return (name, flow_rate, connections);
+            (name, flow_rate, connections)
         }).collect_vec();
 
     // Convert to more efficient index-based connections
@@ -103,5 +103,5 @@ pub fn parse_input(input: &str) -> Vec<Valve> {
             })
         .collect_vec();
 
-    return indexed_valves;
+    indexed_valves
 }

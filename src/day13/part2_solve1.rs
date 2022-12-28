@@ -29,12 +29,12 @@ pub fn solve(input: &str) -> usize {
         match compare_data(left, right) {
             ComparisonResult::CorrectOrder => Ordering::Less,
             ComparisonResult::IncorrectOrder => Ordering::Greater,
-            ComparisonResult::Indeterminate => return Ordering::Equal,
+            ComparisonResult::Indeterminate => Ordering::Equal,
         }
     });
     //packets.iter().for_each(|x| println!("{}",x));
 
-    return find_decoder_key(&packets);
+    find_decoder_key(&packets)
 }
 
 pub mod tests {

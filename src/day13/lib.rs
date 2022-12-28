@@ -129,5 +129,5 @@ pub fn compare_data(left: &str, right: &str) -> ComparisonResult {
         return ComparisonResult::IncorrectOrder;
     }
 
-    return ComparisonResult::Indeterminate;
+    ComparisonResult::Indeterminate
 }

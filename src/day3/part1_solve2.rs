@@ -3,7 +3,7 @@ use itertools::Itertools;
 fn find_duplicate_item(rucksack: &str) -> char {
     let (left, right) = rucksack.split_at(rucksack.len() / 2);
     let mut combinations = left.chars().cartesian_product(right.chars());
-    return combinations.find(|(x,y)| x == y).unwrap().0;
+    combinations.find(|(x,y)| x == y).unwrap().0
 }
 
 fn find_item_value(item: char) -> i32 {
@@ -17,8 +17,8 @@ fn find_item_value(item: char) -> i32 {
 pub fn solve(input: &str) -> i32 {
     input
         .lines()
-        .map(|rucksack| find_duplicate_item(rucksack) )
-        .map(|item| find_item_value(item))
+        .map(find_duplicate_item )
+        .map(find_item_value)
         .sum()
 }
 

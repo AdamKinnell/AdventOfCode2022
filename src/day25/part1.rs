@@ -18,7 +18,7 @@ fn snafu_to_decimal(n: &str) -> i64 {
         }
     }
 
-    return decimal;
+    decimal
 }
 
 fn decimal_to_snafu(mut n: i64) -> String {
@@ -29,11 +29,11 @@ fn decimal_to_snafu(mut n: i64) -> String {
         let mut borrow = false;
         let this_digit = n % 5;
         match this_digit {
-            0 => { snafu.push_str("0")},
-            1 => { snafu.push_str("1")},
-            2 => { snafu.push_str("2")},
-            3 => { snafu.push_str("="); borrow = true}, // We have to borrow 1 from the next place
-            4 => { snafu.push_str("-"); borrow = true}, // We have to borrow 2 from the next place
+            0 => { snafu.push('0')},
+            1 => { snafu.push('1')},
+            2 => { snafu.push('2')},
+            3 => { snafu.push('='); borrow = true}, // We have to borrow 1 from the next place
+            4 => { snafu.push('-'); borrow = true}, // We have to borrow 2 from the next place
             _ => unreachable!()
         }
         n /= 5; // Go to next 5's place in the number
@@ -49,10 +49,10 @@ fn decimal_to_snafu(mut n: i64) -> String {
 pub fn solve(input: &str) -> String {
     let sum = input
     .lines()
-    .map(|line| snafu_to_decimal(line))
+    .map(snafu_to_decimal)
     .sum();
 
-    return decimal_to_snafu(sum);
+    decimal_to_snafu(sum)
 }
 
 pub mod tests {

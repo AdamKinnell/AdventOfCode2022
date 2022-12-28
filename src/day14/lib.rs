@@ -9,15 +9,15 @@ pub struct Position2D {
 
 impl Position2D {
     pub fn below(&self) -> Position2D {
-        return Position2D {x: self.x, y: self.y + 1};
+        Position2D {x: self.x, y: self.y + 1}
     }
 
     pub fn left(&self) -> Position2D {
-        return Position2D {x: self.x - 1, y: self.y};
+        Position2D {x: self.x - 1, y: self.y}
     }
 
     pub fn right(&self) -> Position2D {
-        return Position2D {x: self.x + 1, y: self.y};
+        Position2D {x: self.x + 1, y: self.y}
     }
 }
 
@@ -34,11 +34,11 @@ impl Cave {
              section_max.y - section_min.y + 1,
              section_max.x - section_min.x + 1,
              false);
-        return Cave { blocked, offset_x: section_min.x, offset_y: section_min.y };
+        Cave { blocked, offset_x: section_min.x, offset_y: section_min.y }
     }
 
     pub fn get_lowest_level(&self) -> usize {
-        return self.offset_y + self.blocked.rows() - 1;
+        self.offset_y + self.blocked.rows() - 1
     }
 
     pub fn print(&self) {
@@ -50,7 +50,7 @@ impl Cave {
                     print!(".")
                 }
             }
-            println!("");
+            println!();
         }
     }
 
@@ -80,8 +80,8 @@ fn parse_rock_formation(input: &str, cave: &mut Cave) {
     input
         .split(" -> ")
         .map(|coord| {
-            let (x, y) = coord.split_once(",").unwrap();
-            return Position2D {x: x.parse().unwrap(), y: y.parse().unwrap()};
+            let (x, y) = coord.split_once(',').unwrap();
+            Position2D {x: x.parse().unwrap(), y: y.parse().unwrap()}
         })
         .tuple_windows()
         .for_each(|(from, to)| {
@@ -96,8 +96,8 @@ fn find_rock_formation_bounds(input: &str) -> (Position2D, Position2D) {
     input.lines()
         .flat_map(|line| line.split(" -> "))
         .map(|coord| {
-            let (x, y) = coord.split_once(",").unwrap();
-            return Position2D {x: x.parse().unwrap(), y: y.parse().unwrap()};
+            let (x, y) = coord.split_once(',').unwrap();
+            Position2D {x: x.parse().unwrap(), y: y.parse().unwrap()}
         })
         .for_each(|position| {
             min.x = position.x.min(min.x);
@@ -106,7 +106,7 @@ fn find_rock_formation_bounds(input: &str) -> (Position2D, Position2D) {
             max.y = position.y.max(max.y);
         });
 
-    return (min, max);
+    (min, max)
 }
 
 pub fn parse_cave(input: &str) -> Cave {
@@ -118,5 +118,5 @@ pub fn parse_cave(input: &str) -> Cave {
 
     let mut cave = Cave::new(min, max);
     input.lines().for_each(|r| parse_rock_formation(r, &mut cave));
-    return cave;
+    cave
 }

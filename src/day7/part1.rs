@@ -3,7 +3,7 @@ use super::lib::Command;
 pub fn solve(input: &str) -> usize {
     let commands = input.split("$ ")
         .filter(|s| ! s.is_empty())
-        .map(|command_line| Command::parse(command_line))
+        .map(Command::parse)
         .chain(std::iter::repeat(Command::ReturnToParent)); // Make sure we go back up towards the root directory
 
     let mut sum_of_dirs_less_than_100000 = 0usize;
@@ -13,7 +13,7 @@ pub fn solve(input: &str) -> usize {
         }    
     });
 
-    return sum_of_dirs_less_than_100000;
+    sum_of_dirs_less_than_100000
 }
 
 pub mod tests {

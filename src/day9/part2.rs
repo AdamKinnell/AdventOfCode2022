@@ -28,7 +28,7 @@ struct Snake {
 impl Snake {
     fn new(length: usize, start_at: Vector2D<i32>) -> Snake {
         assert!(length >= 1);
-        return Snake {parts: vec![start_at; length]};
+        Snake {parts: vec![start_at; length]}
     }
 
     fn tail_position(&self) -> &Vector2D<i32> {
@@ -68,7 +68,7 @@ pub fn solve(input: &str) -> usize {
     tail_visited.insert(snake.tail_position().to_tuple());
 
     input.lines().for_each(|line| {
-        let (dir, dist) = line.split_once(" ").unwrap();
+        let (dir, dist) = line.split_once(' ').unwrap();
 
         let distance = dist.parse::<i32>().unwrap();
         for _ in 0..distance {
@@ -77,7 +77,7 @@ pub fn solve(input: &str) -> usize {
         }
     });
 
-    return tail_visited.len();
+    tail_visited.len()
 }
 
 pub mod tests {

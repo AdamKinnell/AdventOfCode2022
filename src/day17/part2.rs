@@ -28,14 +28,14 @@ impl Rock {
         let row_indices = 0..self.shape.rows();
         let column_indices = 0..self.shape.cols();
 
-        return row_indices.cartesian_product(column_indices)
+        row_indices.cartesian_product(column_indices)
             .filter(|(y, x)| self.shape[*y][*x])
             .map(|(y, x)| {
                 // Convert from rock to chamber coordinate
                 let chamber_y = bottom_left_pos.y + (self.shape.rows() - 1 - y) as i32;
                 let chamber_x = bottom_left_pos.x + x as i32;
-                return Position2D {x: chamber_x, y: chamber_y};
-            });
+                Position2D {x: chamber_x, y: chamber_y}
+            })
     }
 }
 
@@ -55,7 +55,7 @@ struct Chamber<const WIDTH: usize> {
 
 impl<const WIDTH: usize> Chamber<WIDTH> {
     fn new() -> Chamber<WIDTH> {
-        return Chamber {
+        Chamber {
             highest_free_row: 0,
             lowest_filled_row: -1,
             column_heights: [0; WIDTH],
@@ -139,7 +139,7 @@ impl<const WIDTH: usize> Chamber<WIDTH> {
             }
         }
 
-        return true;
+        true
     }
 
     fn stamp_formation(&mut self, rock: &Rock, bottom_left_pos: &Position2D) {
@@ -204,7 +204,7 @@ fn get_infinite_rocks() -> impl Iterator<Item=Rock> {
         Grid::<bool>::from_vec([true, true, true, true].to_vec(), 2), // Quad
     ];
 
-    return shapes.into_iter().map(|shape| Rock {shape}).cycle();
+    shapes.into_iter().map(|shape| Rock {shape}).cycle()
 }
 
 fn parse_gas_jets(input: &str) -> Vec<Direction> {
@@ -251,7 +251,7 @@ pub fn solve(input: &str, num_rocks: usize) -> usize {
     }
 
     // No cycles found in input
-    return chamber.highest_free_row as usize;
+    chamber.highest_free_row as usize
 }
 
 pub mod tests {

@@ -2,14 +2,14 @@ use super::lib::{ComparisonResult, compare_data};
 
 pub fn solve(input: &str) -> usize {
     let pairs = input.split("\r\n\r\n");
-    return pairs
+    pairs
         .enumerate()
         .filter(|(_, pair)| {
             let (left, right) = pair.split_once("\r\n").unwrap();
-            return compare_data(left, right) == ComparisonResult::CorrectOrder;
+            compare_data(left, right) == ComparisonResult::CorrectOrder
         })
         .map(|(i,_)| i + 1)
-        .sum();
+        .sum()
 }
 
 pub mod tests {

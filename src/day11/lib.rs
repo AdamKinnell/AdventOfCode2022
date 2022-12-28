@@ -40,7 +40,7 @@ pub fn get_example_monkeys () -> Vec<Monkey<'static>> {
         on_failure: 1,
     };
 
-    return vec![m0, m1, m2, m3];
+    vec![m0, m1, m2, m3]
 }
 
 pub fn get_actual_monkeys() -> Vec<Monkey<'static>> {
@@ -108,5 +108,5 @@ pub fn get_actual_monkeys() -> Vec<Monkey<'static>> {
         on_failure: 1,
     };
 
-    return vec![m0, m1, m2, m3, m4, m5, m6, m7];
+    vec![m0, m1, m2, m3, m4, m5, m6, m7]
 }

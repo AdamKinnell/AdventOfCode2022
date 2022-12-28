@@ -5,12 +5,12 @@ fn value_round(round: &str) -> i32 {
     // [Them] [Us]
     match round {
         "A X" => 3 + 1, // Tie
-        "B X" => 0 + 1, // Lose
+        "B X" => 1, // Lose
         "C X" => 6 + 1, // Win
         "A Y" => 6 + 2, // Win
         "B Y" => 3 + 2, // Tie
-        "C Y" => 0 + 2, // Lose
-        "A Z" => 0 + 3, // Lose
+        "C Y" => 2, // Lose
+        "A Z" => 3, // Lose
         "B Z" => 6 + 3, // Win
         "C Z" => 3 + 3, // Tie
         &_ => unreachable!()
@@ -20,7 +20,7 @@ fn value_round(round: &str) -> i32 {
 pub fn solve(input: &str) -> i32 {
     input
         .lines()
-        .map(|x| value_round(x))
+        .map(value_round)
         .sum()
 }
 

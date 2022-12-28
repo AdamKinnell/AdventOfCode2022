@@ -12,7 +12,7 @@ pub struct Position2D {
 
 impl Position2D {
     fn manhattan_distance(&self, other: &Position2D) -> i32 {
-        return (self.x - other.x).abs() + (self.y - other.y).abs();
+        (self.x - other.x).abs() + (self.y - other.y).abs()
     }
 }
 
@@ -28,10 +28,10 @@ impl Sensor {
         let width_at_this_y = self.position.manhattan_distance(&self.nearest_beacon);
         let width_at_target_y = width_at_this_y - distance_to_y;
         if width_at_target_y < 0 {
-            return None
+            None
         } else {
             let interval = (midpoint - width_at_target_y, midpoint + width_at_target_y);
-            return Some(interval);
+            Some(interval)
         }
     }
 }
@@ -41,10 +41,10 @@ fn parse_input(input: &str) -> Vec<Sensor> {
     let re = Regex::new(regex).unwrap();
     return input.lines().map(|line| {
         let captures = re.captures(line).unwrap();
-        return Sensor {
+        Sensor {
             position: Position2D { x: captures[1].parse().unwrap(), y: captures[2].parse().unwrap() },
             nearest_beacon: Position2D { x: captures[3].parse().unwrap(), y: captures[4].parse().unwrap() }
-        };
+        }
     }).collect_vec();
 }
 

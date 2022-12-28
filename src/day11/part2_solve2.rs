@@ -5,7 +5,7 @@ use super::lib::*;
 fn hash_monkey_items(monkeys: &Vec<Monkey>) -> u64 {
     let mut hasher = DefaultHasher::new();
     monkeys.iter().for_each(|monkey| monkey.items.hash(&mut hasher));
-    return hasher.finish();
+    hasher.finish()
 }
 
 fn find_top_two(items: &Vec<usize>) -> (usize, usize) {
@@ -22,7 +22,7 @@ fn find_top_two(items: &Vec<usize>) -> (usize, usize) {
         }
     }
 
-    return (largest_a, largest_b);
+    (largest_a, largest_b)
 }
 
 fn solve(mut monkeys: Vec<Monkey>) -> usize {
@@ -45,9 +45,9 @@ fn solve(mut monkeys: Vec<Monkey>) -> usize {
                     worry_level %= worry_lcm;
                     // Test
                     if worry_level % monkey.divisor == 0 {
-                        return (monkey.on_success, worry_level);
+                        (monkey.on_success, worry_level)
                     } else {
-                        return (monkey.on_failure, worry_level);
+                        (monkey.on_failure, worry_level)
                     }
                 }).collect_vec();
 
@@ -93,7 +93,7 @@ fn solve(mut monkeys: Vec<Monkey>) -> usize {
     }
 
     let (t1, t2) = find_top_two(&num_items_inspected);
-    return t1 * t2;
+    t1 * t2
 }
 
 pub mod tests {

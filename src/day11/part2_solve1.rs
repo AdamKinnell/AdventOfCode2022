@@ -19,9 +19,9 @@ fn solve(mut monkeys: Vec<Monkey>) -> usize {
                     worry_level %= worry_lcm;
                     // Test
                     if worry_level % monkey.divisor == 0 {
-                        return (monkey.on_success, worry_level);
+                        (monkey.on_success, worry_level)
                     } else {
-                        return (monkey.on_failure, worry_level);
+                        (monkey.on_failure, worry_level)
                     }
                 }).collect_vec();
 

@@ -49,7 +49,7 @@ fn div_ceil(x: u16, d: u16) -> u16 {
 impl SimulationState {
 
     pub fn new() -> SimulationState {
-        return SimulationState {
+        SimulationState {
             next_minute: 1,
             orebot_count: 1,
             claybot_count: 0,
@@ -58,7 +58,7 @@ impl SimulationState {
             ore_count: 0,
             clay_count: 0,
             obsidian_count: 0,
-            geode_count: 0 };
+            geode_count: 0 }
     }
 
     fn minutes_to_gather_resource(&self, needed: u16, resource: Resource) -> Option<u16> {
@@ -77,7 +77,7 @@ impl SimulationState {
 
         let remaining_ore_needed = needed.saturating_sub(current);
         let minutes_required = div_ceil(remaining_ore_needed, production_per_min as u16);
-        return Some(minutes_required);
+        Some(minutes_required)
     }
 
     fn minutes_until_can_build_bot(&self, blueprint: &Blueprint, bot: &Bot) -> Option<u16> {
@@ -90,13 +90,13 @@ impl SimulationState {
                 let ore_time = self.minutes_to_gather_resource(blueprint.obsidanbot_ore_cost, Resource::Ore);
                 let clay_time = self.minutes_to_gather_resource(blueprint.obsidanbot_clay_cost, Resource::Clay);
                 if ore_time.is_none() || clay_time.is_none() {return None;}
-                return Some(ore_time.unwrap().max(clay_time.unwrap()));
+                Some(ore_time.unwrap().max(clay_time.unwrap()))
             }
             Bot::Geodebot => {
                 let ore_time = self.minutes_to_gather_resource(blueprint.geodebot_ore_cost, Resource::Ore);
                 let obsidian_time = self.minutes_to_gather_resource(blueprint.geodebot_obsidian_cost, Resource::Obsidian);
                 if ore_time.is_none() || obsidian_time.is_none() {return None;}
-                return Some(ore_time.unwrap().max(obsidian_time.unwrap()));
+                Some(ore_time.unwrap().max(obsidian_time.unwrap()))
             } ,
 
         }
@@ -133,28 +133,28 @@ impl SimulationState {
         match bot {
             Bot::Orebot => {
                 let ore_production = self.orebot_count;
-                return ore_production <= (blueprint.claybot_ore_cost).max(blueprint.obsidanbot_ore_cost).max(blueprint.geodebot_ore_cost);
+                ore_production <= (blueprint.claybot_ore_cost).max(blueprint.obsidanbot_ore_cost).max(blueprint.geodebot_ore_cost)
             }
             Bot::Claybot => {
                 let clay_production = self.claybot_count;
-                return clay_production <= blueprint.obsidanbot_clay_cost;
+                clay_production <= blueprint.obsidanbot_clay_cost
             },
             Bot::Obsidianbot => {
                 let obsidian_production = self.obsidianbot_count;
-                return obsidian_production <= blueprint.geodebot_obsidian_cost;
+                obsidian_production <= blueprint.geodebot_obsidian_cost
             },
-            Bot::Geodebot => return true, // We can always use more geodes
+            Bot::Geodebot => true, // We can always use more geodes
         }
     }
 
     fn wait_for_and_build_bot(&self, blueprint: &Blueprint, bot: Bot) -> Option<SimulationState> {
         let mins_to_wait = self.minutes_until_can_build_bot(blueprint, &bot);
-        if mins_to_wait.is_none() { return None;}
+        mins_to_wait?;
 
         let mut new = *self;
         new.advance_time(mins_to_wait.unwrap() as u16 + 1); // Include 1 minute build time.
         new.build_bot(blueprint, &bot);
-        return Some(new);
+        Some(new)
     }
 
     fn advance_time(&mut self, minutes: u16) {
@@ -170,15 +170,15 @@ pub fn parse_blueprints(input: &str) -> impl Iterator<Item=Blueprint> + '_ {
     return input
         .lines()
         .map(|line| {
-            let tokens = line.split(" ").collect_vec();
-            return Blueprint {
+            let tokens = line.split(' ').collect_vec();
+            Blueprint {
                 orebot_ore_cost: tokens[6].parse().unwrap(),
                 claybot_ore_cost: tokens[12].parse().unwrap(),
                 obsidanbot_ore_cost: tokens[18].parse().unwrap(),
                 obsidanbot_clay_cost: tokens[21].parse().unwrap(),
                 geodebot_ore_cost: tokens[27].parse().unwrap(),
                 geodebot_obsidian_cost: tokens[30].parse().unwrap(),
-            };
+            }
         })
 }
 
@@ -217,13 +217,13 @@ pub fn calculate_blueprint_quality(blueprint: &Blueprint, state: SimulationState
     }
 
     if could_build_any_bots {
-        return highest_score;
+        highest_score
     } else {
         // No time left to build any more bots, so let's just simulate resource collection until the end
         let minutes_remaining = finish_at_minute - state.next_minute;
         let mut end_state = state;
         end_state.advance_time(minutes_remaining);
-        return calculate_blueprint_quality(blueprint, end_state, finish_at_minute);
+        calculate_blueprint_quality(blueprint, end_state, finish_at_minute)
     }
 
 }

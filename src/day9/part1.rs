@@ -29,7 +29,7 @@ pub fn solve(input: &str) -> usize {
     tail_visited.insert(tail_at.to_tuple());
 
     input.lines().for_each(|line| {
-        let (dir, dist) = line.split_once(" ").unwrap();
+        let (dir, dist) = line.split_once(' ').unwrap();
         let direction = get_vec_from_direction(dir);
         let distance = dist.parse::<i32>().unwrap();
         
@@ -44,7 +44,7 @@ pub fn solve(input: &str) -> usize {
         }
     });
 
-    return tail_visited.len();
+    tail_visited.len()
 }
 
 pub mod tests {
