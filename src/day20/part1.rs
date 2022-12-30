@@ -41,22 +41,6 @@ pub mod tests {
     use criterion::Criterion;
     use std::path::Path;
 
-    // #[test]
-    // fn verify_mixer() {
-    //     // No-op
-    //     assert_eq!(super::mix(&vec![0,0,0]), vec![0,0,0]);
-
-    //     // Move right 1
-    //     assert_eq!(super::mix(&vec![1,0,0]), vec![0,0,1]);
-    //     assert_eq!(super::mix(&vec![0,1,0]), vec![1,0,0]);
-    //     assert_eq!(super::mix(&vec![0,0,1]), vec![0,1,0]);
-
-    //     // Move left 1
-    //     assert_eq!(super::mix(&vec![-1,0,0]), vec![0,-1,0]);
-    //     assert_eq!(super::mix(&vec![0,-1,0]), vec![0,0,-1]);
-    //     assert_eq!(super::mix(&vec![0,0,-1]), vec![0,-1,0]);
-    // }
-
     #[test]
     fn verify_example() {
         assert_eq!(super::solve(super::super::INPUT_EXAMPLE), 3);
