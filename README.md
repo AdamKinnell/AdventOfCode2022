@@ -270,6 +270,20 @@ Possible improvements include:
 > **Part 2**: Find build order to maximize mined geodes in 32 minutes.    
 &ensp;&ensp;`⌛O(n · 2^m)` | `📦O(m)`, where n is the number of blueprints and m is the number of minutes.
 
+### Day 20
+
+I had a lot of trouble understanding the movement logic for this one for some reason. I also got a little messed up by duplicates in the input as well as needing to modulo by `len() - 1` instead of `len()` (I still don't understand why this is needed).
+
+Overall this is a rather inefficent solution, but it was fast enough to solve the problem (~150 ms).
+
+Possible improvements include:
+  + Implementing an array-based linked list to allow finding, insertion, and removal of elements in `O(1)` instead of `O(n)`. This would bring overall time complexity down to `O(n)` for both parts.
+
+> **Part 1**: Mix all numbers once and sum numbers at 3 coordinates.  
+&ensp;&ensp;`⌛O(n^2)` | `📦O(n)`, where n is the count of numbers in the input.  
+> **Part 2**: Multiply all numbers by a fixed value, mix them 10 times, and sum numbers at 3 coordinates.  
+&ensp;&ensp;`⌛O(n^2)` | `📦O(n)`, where n is the count of numbers in the input.  
+
 ...
 
 ### Day 25

@@ -64,6 +64,9 @@ pub fn criterion_benchmark(c: &mut Criterion) {
     advent_of_code_2022::day19::part1::tests::benchmark(c);
     advent_of_code_2022::day19::part2::tests::benchmark(c);
 
+    advent_of_code_2022::day20::part1::tests::benchmark(c);
+    advent_of_code_2022::day20::part2::tests::benchmark(c);
+
     advent_of_code_2022::day25::part1::tests::benchmark(c);
     advent_of_code_2022::day25::part2::tests::benchmark(c);
 
