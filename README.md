@@ -284,6 +284,21 @@ Possible improvements include:
 > **Part 2**: Multiply all numbers by a fixed value, mix them 10 times, and sum numbers at 3 coordinates.  
 &ensp;&ensp;`⌛O(n^2)` | `📦O(n)`, where n is the count of numbers in the input.  
 
+### Day 21
+
+This challenge is about evaluating a deeply nested tree of operations.
+
+Possible improvements include:
+  + Avoid repeating the binary search if we have to change the sort order.
+  + Using an iterative algorithm instead of recursive to avoid possible stack overflows on larger inputs.
+  + In Part 2, only evaluate the children that change after updating the value of the "humn" monkey. At the very least, we could only evalute one side of the root node each time which changes.
+  + After reading about some other people's solutions, we could also use algebra to reverse the operations and directly calculate the value of "humn" once we have calculated the other side of the root node.
+
+> **Part 1**: Recursively evaluate expressions to find the final value of the root node.  
+&ensp;&ensp;`⌛O(n)` | `📦O(n)`, where n is the number of monkeys.  
+> **Part 2**: Find the value of given to a monkey which makes both children of the root node evaluate to the same number using a binary search.  
+&ensp;&ensp;`⌛O(n log n)` | `📦O(n)`, where n is the number of monkeys.  
+
 ...
 
 ### Day 25
